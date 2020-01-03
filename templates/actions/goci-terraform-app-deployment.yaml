@@ -1,0 +1,45 @@
+name: rollout
+on:
+  push:
+    branches:
+      - master
+jobs:
+  infrastructure:
+    name: Terraform
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@master
+        with:
+          fetch-depth: 1
+      - name: Terraform Format
+        uses: hashicorp/terraform-github-actions@master
+        with:
+          tf_actions_version: 0.12.18
+          tf_actions_subcommand: 'fmt'
+        env:
+          GITHUB_TOKEN: $${{ secrets.GITHUB_TOKEN }}
+      - name: Rollout infrastructure
+        uses: docker://gocidocker/github-actions-terraform:v1.0
+        env:
+          GITHUB_TOKEN: $${{ secrets.GITHUB_TOKEN }}
+          TRIGGER_REMOTE_ADDRESS: https://webhooks.goci.io/accounts/${account_id}/projects/${project_id}/triggers/terraform/apply
+  app:
+    name: App
+    runs-on: ubuntu-latest
+    needs: infrastructure
+    steps:
+      - name: Build app
+        uses: ${build_runner}
+      - name: Deploy application to staging
+        uses: docker://gocidocker/github-actions-k8s:v1.0
+        env:
+          ACTION: deploy
+          CLUSTER_ADDRESS: staging.eu1.goci.io
+          GITHUB_TOKEN: $${{ secrets.GITHUB_TOKEN }}
+      - name: Deploy application to production
+        uses: docker://gocidocker/github-actions-k8s:v1.0
+        env:
+          ACTION: deploy
+          CLUSTER_ADDRESS: eu1.goci.io
+          GITHUB_TOKEN: $${{ secrets.GITHUB_TOKEN }}

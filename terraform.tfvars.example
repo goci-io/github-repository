@@ -1,0 +1,16 @@
+repository_name        = "goci-repository-setup-example"
+repository_description = "Repository created by goci-io/github-repository"
+description            = "This repository is an example repository created by [goci-io/github-repository](https://github.com/goci-io/github-repository). This example shows a bare setup and the change history. It uses the example action goci-terraform-app-deployment which allows to deploy the application to kubernetes and use a custom build action or image"
+topics                 = ["example", "repository", "terraform"]
+homepage_url           = "https://goci.io"
+github_organization    = "goci-io"
+gitignore_template     = "Terraform"
+account_id             = "123456789"
+project_id             = "abc123"
+ssh_key_file           = "~/.ssh/id_rsa"
+create_webhook         = false
+actions                = {
+  goci-terraform-app-deployment = {
+    build_runner = "actions/setup-node@master"
+  }
+}

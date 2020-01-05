@@ -78,13 +78,3 @@ module "sync_actions_commit" {
   changes            = true
   paths              = zipmap(data.null_data_source.actions.*.outputs.key, jsondecode(format("[%s]", join(",", data.null_data_source.actions.*.outputs.value))))
 }
-
-resource "null_resource" "commits" {
-  triggers = {
-    content_hash = join("\n", [
-      module.initial_readme_commit.done_trigger,
-      module.initial_actions_commit.done_trigger,
-    ])
-  }
-}
-

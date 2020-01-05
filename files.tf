@@ -8,7 +8,7 @@ data "null_data_source" "workflows" {
 
   inputs = {
     action = local.action_names[count.index]
-    name   = urlencode(yamldecode(file(format("%s/templates/actions/%s.yaml", path.module, local.action_names[count.index]))).name)
+    name   = yamldecode(file(format("%s/templates/actions/%s.yaml", path.module, local.action_names[count.index]))).name
   }
 }
 

@@ -18,7 +18,7 @@ resource "github_repository" "repository" {
 resource "github_branch_protection" "master" {
   count          = var.create_repository && var.create_branch_protection ? 1 : 0
   depends_on     = [
-    null_resource.initial_files,
+    module.sync_actions_commit,
   ]
 
   repository     = local.repository_name
@@ -36,7 +36,7 @@ resource "github_branch_protection" "master" {
 resource "github_repository_webhook" "infrastructure_change" {
   count      = var.create_repository && var.create_webhook ? 1 : 0
   depends_on = [
-    null_resource.initial_files,
+    module.sync_actions_commit,
   ]
 
   repository = local.repository_name

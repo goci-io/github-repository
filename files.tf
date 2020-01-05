@@ -12,73 +12,69 @@ data "null_data_source" "workflows" {
   }
 }
 
-resource "local_file" "actions" {
-  count      = length(var.actions)
-  filename   = format("%s/.github/workflows/%s.yml", local.repository_dir, local.action_names[count.index])
-  content    = templatefile(format("%s/templates/actions/%s.yaml", path.module, local.action_names[count.index]), merge({
-    project_id   = local.project_id,
-    account_id   = var.account_id,
-  }, var.actions[local.action_names[count.index]]))
-}
-
-resource "local_file" "readme" {
-  filename   = format("%s/README.md", local.repository_dir)
-  content    = templatefile(format("%s/templates/README.md", path.module), {
-    repository   = local.repository_name
-    description  = var.description
-    github_url   = var.github_base_url
-    organization = var.github_organization
-    workflows    = data.null_data_source.workflows.*.outputs.name
-  })
-}
-
-resource "null_resource" "clone_repository" {
-  provisioner "local-exec" {
-    command = "cd ${local.repository_dir} && GIT_SSH_COMMAND='ssh -i ${var.ssh_key_file}' git clone ${local.repository_remote}"
-  }
-
-  triggers = {
-    actions_hash = md5(join("", local_file.actions.*.content))
+module "initial_readme_commit" {
+  source             = "git::https://github.com/goci-io/terraform-git-commit.git?ref=master"
+  git_repository     = local.repository_name
+  git_organization   = var.github_organization
+  git_base_url       = var.github_base_url
+  ssh_key_file       = var.ssh_key_file
+  templates_root_dir = abspath(path.module)
+  message            = "[goci] add initial README.md"
+  branch             = "master"
+  changes            = false
+  paths              = {
+    "templates/README.md" = {
+      target = "README.md"
+      data   = {
+        repository   = local.repository_name
+        description  = var.description
+        github_url   = var.github_base_url
+        organization = var.github_organization
+        workflows    = data.null_data_source.workflows.*.outputs.name
+      }
+    }
   }
 }
 
-resource "null_resource" "initial_files" {
-  depends_on = [
-    local_file.readme,
-    local_file.actions,
-    null_resource.clone_repository,
-  ]
+data "null_data_source" "actions" {
+  count = length(var.actions)
 
-  provisioner "local-exec" {
-    command = "${path.module}/scripts/initial.sh ${local.repository_dir} ${local.repository_name} ${var.ssh_key_file}"
+  inputs = {
+    key   = "templates/actions/${local.action_names[count.index]}.yaml"
+    value = jsonencode({
+      target = format(".github/workflows/%s.yaml", local.action_names[count.index])
+      data   = merge({
+        project_id   = local.project_id,
+        account_id   = var.account_id,
+      }, var.actions[local.action_names[count.index]])
+    })
   }
 }
 
-resource "null_resource" "update_actions" {
-  depends_on = [
-    null_resource.initial_files,
-    null_resource.clone_repository,
-  ]
-
-  provisioner "local-exec" {
-    command = "${path.module}/scripts/update-actions.sh ${local.repository_dir} ${local.repository_name} ${var.ssh_key_file}"
-  }
-
-  triggers = {
-    hash = md5(join("", local_file.actions.*.content))
-  }
+module "initial_actions_commit" {
+  source             = "git::https://github.com/goci-io/terraform-git-commit.git?ref=master"
+  commit_depends_on  = [module.initial_readme_commit]
+  git_repository     = local.repository_name
+  git_organization   = var.github_organization
+  git_base_url       = var.github_base_url
+  ssh_key_file       = var.ssh_key_file
+  templates_root_dir = abspath(path.module)
+  message            = "[goci] add initial github actions"
+  branch             = "master"
+  changes            = false
+  paths              = zipmap(data.null_data_source.actions.*.outputs.key, jsondecode(format("[%s]", join(",", data.null_data_source.actions.*.outputs.value))))
 }
 
-resource "null_resource" "cleanup" {
-  depends_on = [
-    null_resource.update_actions,
-  ]
-
-  provisioner "local-exec" {
-    command = "rm -rf ${local.repository_dir}/${local.repository_name}"
-  }
-
-  triggers = {
-    actions_hash = md5(join("", local_file.actions.*.content))
-  }
+module "sync_actions_commit" {
+  source             = "git::https://github.com/goci-io/terraform-git-commit.git?ref=master"
+  commit_depends_on  = [module.initial_actions_commit]
+  git_repository     = local.repository_name
+  git_organization   = var.github_organization
+  git_base_url       = var.github_base_url
+  ssh_key_file       = var.ssh_key_file
+  templates_root_dir = abspath(path.module)
+  message            = "[goci] update github actions"
+  branch             = "goci-update-actions"
+  changes            = true
+  paths              = zipmap(data.null_data_source.actions.*.outputs.key, jsondecode(format("[%s]", join(",", data.null_data_source.actions.*.outputs.value))))
 }

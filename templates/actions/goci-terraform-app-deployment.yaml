@@ -21,11 +21,9 @@ jobs:
         env:
           GITHUB_TOKEN: $${{ secrets.GITHUB_TOKEN }}
       - name: Rollout infrastructure
-        uses: docker://gocidocker/github-actions-terraform:v1.0
+        uses: goci-io/github-action-terraform@0.1.0
         env:
-          TERRAFORM_DIRECTORY: ${terraform_dir}
           GITHUB_TOKEN: $${{ secrets.GITHUB_TOKEN }}
-          REMOTE_ADDRESS: https://webhooks.goci.io/accounts/$${{ secrets.GOCI_ACCOUNT_ID }}/projects/$${{ secrets.GOCI_PROJECT_ID }}/triggers/terraform
   app:
     name: App
     runs-on: ubuntu-latest
@@ -34,14 +32,13 @@ jobs:
       - name: Build app
         uses: ${build_runner}
       - name: Deploy application to staging
-        uses: docker://gocidocker/github-actions-k8s:v1.0
+        uses: goci-io/github-action-k8s@0.1.0
         env:
           ACTION: deploy
           CLUSTER_ADDRESS: staging.eu1.goci.io
           CERTIFICATE: $${{ secrets.GOCI_KUBERNETES_CERT }}
       - name: Deploy application to production
-        uses: docker://gocidocker/github-actions-k8s:v1.0
+        uses: goci-io/github-action-k8s@0.1.0
         env:
-          ACTION: deploy
           CLUSTER_ADDRESS: eu1.goci.io
           CERTIFICATE: $${{ secrets.GOCI_KUBERNETES_CERT }}

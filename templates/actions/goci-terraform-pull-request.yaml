@@ -1,5 +1,5 @@
-name: Terraform validate
-on: push
+name: Terraform pull request
+on: pull_request
 jobs:
   terraform:
     name: Terraform
@@ -15,6 +15,7 @@ jobs:
           tf_actions_version: 0.12.18
           tf_actions_subcommand: 'fmt'
           tf_actions_working_dir: ${terraform_dir}
+          tf_actions_comment: true
         env:
           GITHUB_TOKEN: $${{ secrets.GITHUB_TOKEN }}
       - name: Terraform Validate
@@ -23,5 +24,6 @@ jobs:
           tf_actions_version: 0.12.18
           tf_actions_subcommand: 'validate'
           tf_actions_working_dir: ${terraform_dir}
+          tf_actions_comment: true
         env:
           GITHUB_TOKEN: $${{ secrets.GITHUB_TOKEN }}

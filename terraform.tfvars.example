@@ -12,5 +12,8 @@ create_webhook         = false
 actions                = {
   goci-terraform-change = {
     terraform_dir = "."
+  },
+  goci-terraform-pull-request = {
+    terraform_dir = "."
   }
 }

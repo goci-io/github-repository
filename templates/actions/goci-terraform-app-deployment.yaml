@@ -12,16 +12,18 @@ jobs:
         uses: actions/checkout@master
         with:
           fetch-depth: 1
-      - name: Terraform Format
+      - name: Terraform Validate
         uses: hashicorp/terraform-github-actions@master
+        working-directory: ${terraform_dir}
         with:
           tf_actions_version: 0.12.18
-          tf_actions_subcommand: 'fmt'
+          tf_actions_subcommand: 'validate'
         env:
           GITHUB_TOKEN: $${{ secrets.GITHUB_TOKEN }}
       - name: Rollout infrastructure
         uses: docker://gocidocker/github-actions-terraform:v1.0
         env:
+          TERRAFORM_DIRECTORY: ${terraform_dir}
           GITHUB_TOKEN: $${{ secrets.GITHUB_TOKEN }}
           TRIGGER_REMOTE_ADDRESS: https://webhooks.goci.io/accounts/${account_id}/projects/${project_id}/triggers/terraform/apply
   app:

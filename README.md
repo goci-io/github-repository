@@ -2,14 +2,14 @@
 
 **Maintained by [@goci-io/prp-terraform](https://github.com/orgs/goci-io/teams/prp-terraform)**
 
-This module provisions a new github repository. A new project consists of the following:
+This module provisions a new github repository. A new repository consists of the following:
 
 - Initial `README.md`, `LICENSE` and `.gitignore` file  
 - GitHub Actions to build and deploy the project (optional)  
 - Webhook for push events, including a secret (optional)  
 
 Changes to any file, unrelated to the project itself (eg. github actions), are commited and pushed to a new branch.
-You are responsible to create new pull requests, review and accept them.
+You are responsible to create new pull requests, review and accept them. You can also use this module for an existing repository to deploy settings like branch protection and github actions.
 
 A bare example and change history can be found [here](https://github.com/goci-io/goci-repository-setup-example).
 This example is generated based on the terraform.tfvars.example.

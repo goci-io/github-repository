@@ -1,5 +1,7 @@
 # github-repository
 
+**Maintained by [@goci-io/prp-terraform](https://github.com/orgs/goci-io/teams/prp-terraform)**
+
 This module provisions a new github repository. A new project consists of the following:
 
 - Initial `README.md`, `LICENSE` and `.gitignore` file  

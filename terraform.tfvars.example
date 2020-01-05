@@ -10,7 +10,7 @@ project_id             = "abc123"
 ssh_key_file           = "~/.ssh/id_rsa"
 create_webhook         = false
 actions                = {
-  goci-terraform-app-deployment = {
-    build_runner = "actions/setup-node@master"
+  goci-terraform-change = {
+    terraform_dir = "."
   }
 }

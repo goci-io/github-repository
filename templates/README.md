@@ -14,6 +14,6 @@ ${ if length(contributors) > 0 ~}
 ### Contributors
 
 %{ for contributor in contributors ~}
-  [![${contributor.name}](${contributor.image_url})<br/>[${contributor.name}](${contributor.url})] 
+  [![${contributor.name}](${contributor.image_url})](${contributor.url})
 %{ endfor ~}
 %{ endif ~}

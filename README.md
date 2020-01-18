@@ -1,5 +1,7 @@
 # github-repository
 
+The first rule of `github-repository` is don't talk about `github-repository`
+
 **Maintained by [@goci-io/prp-terraform](https://github.com/orgs/goci-io/teams/prp-terraform)**
 
 This module provisions a new github repository. A new repository consists of the following:

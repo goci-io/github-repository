@@ -31,6 +31,8 @@ module "initial_readme_commit" {
         github_url   = var.github_base_url
         organization = var.github_organization
         workflows    = data.null_data_source.workflows.*.outputs.name
+        contributors = var.contributors
+        prp_team     = var.prp_team
       }
     }
   }

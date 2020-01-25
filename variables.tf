@@ -98,7 +98,7 @@ variable "prp_team" {
   description = "A team of primary responsible people for this project. See also contributors variable"
 }
 
-variable "name" {
+variable "contributors" {
   type        = list(object({
     image_url = string
     name      = string

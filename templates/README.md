@@ -10,10 +10,8 @@
 
 ${description}
 
-${ if length(contributors) > 0 ~}
+%{ if length(contributors) > 0 ~}
 ### Contributors
 
-%{ for contributor in contributors ~}
-  [![${contributor.name}](${contributor.image_url})](${contributor.url})
-%{ endfor ~}
+%{ for contributor in contributors ~}[![${contributor.name}](${contributor.image_url}) =96x](${contributor.url})%{ endfor ~}
 %{ endif ~}

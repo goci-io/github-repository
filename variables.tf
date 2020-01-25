@@ -92,6 +92,22 @@ variable "github_organization" {
   description = "The name of the github organization or individual"
 }
 
+variable "prp_team" {
+  type        = string
+  default     = ""
+  description = "A team of primary responsible people for this project. See also contributors variable"
+}
+
+variable "contributors" {
+  type        = list(object({
+    image_url = string
+    name      = string
+    url       = string
+  }))
+  default     = []
+  description = "List of contributors to add to the README. See also prp_team variable" 
+}
+
 variable "ssh_key_file" {
   type        = string
   default     = "~/.ssh/git_rsa"

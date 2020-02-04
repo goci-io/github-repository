@@ -1,5 +1,8 @@
 locals {
-  webhooks = var.webhooks
+  webhooks = concat(
+    var.webhooks,
+    local.atlantis_enabled ? [local.atlantis_webhook] : []
+  )
 }
 
 resource "random_integer" "pw_length" {

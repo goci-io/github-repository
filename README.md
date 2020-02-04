@@ -66,7 +66,7 @@ You also need to make sure to have a valid token set in `GITHUB_TOKEN` environme
 | atlantis_sync_enabled | Enables sync of updated atlantis.yaml. If false no updates are made | `true` |
 | atlantis_url | URL to the atlantis server. Must be set to enable atlantis. | `""` |
 
-Example GitHub-Action configuration:
+##### Example GitHub-Action configuration:
 ```hcl
 actions = {
   template-name = {
@@ -81,8 +81,7 @@ The template name should reference a file created in [`templates`](https://githu
 - [actions/goci-terraform-pull-request](https://github.com/goci-io/github-repository/tree/master/templates/actions/goci-terraform-pull-request.yaml)  
 - [actions/goci-terraform-change](https://github.com/goci-io/github-repository/tree/master/templates/actions/goci-terraform-change.yaml)  
 
-
-Example [Atlantis](https://www.runatlantis.io/guide/) configuration for the repo level config:
+##### Example [Atlantis](https://www.runatlantis.io/guide/) configuration for the repo level config:
 ```hcl
 atlantis_workspaces = [
   {

@@ -8,7 +8,8 @@ This module provisions a new github repository. A new repository consists of the
 
 - Initial `README.md`, `LICENSE` and `.gitignore` file  
 - GitHub Actions to build and deploy the project (optional)  
-- Webhook for push events, including a secret (optional)  
+- Webhook with ability to autogenerate secrets (optional)  
+- [Atlantis](https://www.runatlantis.io/guide/) Repo level configuration
 
 Changes to any file, unrelated to the project itself (eg. github actions), are commited and pushed to a new branch.
 You are responsible to create new pull requests, review and accept them. You can also use this module for an existing repository to deploy settings like branch protection and github actions.
@@ -23,9 +24,15 @@ module "repository" {
   source                   = "git::https://github.com/goci-io/github-repository.git?ref=tags/<latest-version>"
   repository_name          = "goci-repository-setup-example"
   github_organization      = "goci-io"
-  create_webhook           = false
   create_branch_protection = false
   topics                   = ["projectX"]
+  webhooks                 = [
+    {
+      name   = "webhook"
+      events = ["push"]
+      url    = "https://notify.me.on.events.com"
+    }
+  ]
 }
 ```
 

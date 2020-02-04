@@ -53,7 +53,7 @@ You also need to make sure to have a valid token set in `GITHUB_TOKEN` environme
 | homepage_url | URL to a homepage on the repository | - |
 | description | Initial README description | `repository_description` | 
 | create_branch_protection | Creates a branch protection for the master branch | `true` |
-| webhooks | Creates webhooks for events. List of object with name and url. Additionally you can set events and secret | `[]` |
+| webhooks | Creates webhooks for events. List of object with url and additionally you can set events and secret | `[]` |
 | license_template | Name of license template to use | `apache-2.0` |
 | gitignore_template | Name of the gitignore template to use | - |
 | prp_team | Team of rimary responsible people | - |

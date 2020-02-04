@@ -26,7 +26,6 @@ resource "github_repository_webhook" "webhooks" {
   ]
 
   repository = local.repository_name
-  name       = lookup(local.webhooks[count.index], "name")
   events     = lookup(local.webhooks[count.index], "events", ["push"])
 
   configuration {

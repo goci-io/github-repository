@@ -15,7 +15,7 @@ resource "random_password" "secret" {
   override_special = "_-=%@$!?#"
 }
 
-resource "github_repository_webhook" "infrastructure_change" {
+resource "github_repository_webhook" "webhooks" {
   count      = length(local.webhooks)
   depends_on = [
     module.sync_actions_commit,

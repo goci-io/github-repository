@@ -10,10 +10,7 @@ data "null_data_source" "actions" {
     key   = "templates/actions/${local.action_names[count.index]}.yaml"
     value = jsonencode({
       target = format(".github/workflows/%s.yaml", local.action_names[count.index])
-      data   = merge({
-        project_id   = local.project_id,
-        account_id   = var.account_id,
-      }, var.actions[local.action_names[count.index]])
+      data   = var.actions[local.action_names[count.index]]
     })
   }
 }

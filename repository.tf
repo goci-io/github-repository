@@ -16,7 +16,7 @@ resource "github_repository" "repository" {
 }
 
 resource "github_branch_protection" "master" {
-  count          = var.create_repository && var.create_branch_protection ? 1 : 0
+  count          = var.create_branch_protection ? 1 : 0
   depends_on     = [
     module.sync_actions_commit,
   ]
@@ -34,17 +34,17 @@ resource "github_branch_protection" "master" {
 }
 
 resource "github_repository_webhook" "infrastructure_change" {
-  count      = var.create_repository && var.create_webhook ? 1 : 0
+  count      = length(var.webhooks)
   depends_on = [
     module.sync_actions_commit,
   ]
 
   repository = local.repository_name
-  name       = var.webhook_push_name
-  events     = ["push"]
+  name       = lookup(var.webhooks[count.index], "name")
+  events     = lookup(var.webhooks[count.index], "events", ["push"])
 
   configuration {
-    url          = var.webhook_push_url
+    url          = lookup(var.webhooks[count.index], "url")
     secret       = local.webhook_secret
     content_type = "json"
     insecure_ssl = false

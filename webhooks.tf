@@ -1,3 +1,6 @@
+locals {
+  webhooks = var.webhooks
+}
 
 resource "random_integer" "pw_length" {
   count = length(local.webhooks)

@@ -118,5 +118,5 @@ variable "atlantis_workspaces" {
     workflow = string
   }))
   default     = []
-  description = "If not empty synchronises the atlantis.yaml with the repository"
+  description = "Specifies workspaces to deploy the modules into. Defaults to default name and workflow with autoplan true"
 }

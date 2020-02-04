@@ -1,6 +1,6 @@
 locals {
   atlantis_enabled    = length(var.atlantis_modules) > 0
-  atlantis_default    = [{ name = "default", workflow = "default" }]
+  atlantis_default    = [{ name = "default", workflow = "default", autoplan = true }]
   atlantis_workspaces = length(var.atlantis_workspaces) > 0 ? var.atlantis_workspaces : local.atlantis_default
 }
 

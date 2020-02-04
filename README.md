@@ -104,6 +104,3 @@ atlantis_modules = [
   }
 ]
 ```
-
-#### Todos
-- Allow to use without goci context (project- and account-id)  

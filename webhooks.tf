@@ -19,7 +19,6 @@ resource "github_repository_webhook" "infrastructure_change" {
   count      = length(local.webhooks)
   depends_on = [
     module.sync_actions_commit,
-    module.sync_atlantis_commit,
   ]
 
   repository = local.repository_name

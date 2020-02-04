@@ -32,21 +32,3 @@ resource "github_branch_protection" "master" {
   # Status check context cannot be created right now
   #required_status_checks {}
 }
-
-resource "github_repository_webhook" "infrastructure_change" {
-  count      = length(var.webhooks)
-  depends_on = [
-    module.sync_actions_commit,
-  ]
-
-  repository = local.repository_name
-  name       = lookup(var.webhooks[count.index], "name")
-  events     = lookup(var.webhooks[count.index], "events", ["push"])
-
-  configuration {
-    url          = lookup(var.webhooks[count.index], "url")
-    secret       = local.webhook_secret
-    content_type = "json"
-    insecure_ssl = false
-  }
-}

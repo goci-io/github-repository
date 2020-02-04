@@ -10,6 +10,12 @@ variable "create_branch_protection" {
   description = "Whether to enable branch protection on the master or not"
 }
 
+variable "status_checks" {
+  type        = list(string)
+  default     = []
+  description = "List of status checks to require in order to merge"
+}
+
 variable "repository_name" {
   type        = string
   description = "Name of the git repository"
@@ -100,4 +106,35 @@ variable "actions" {
   type        = map(map(string))
   default     = {}
   description = "GitHub Actions to commit to the repository. Available actions can be found in templates/actions"
+}
+
+variable "atlantis_modules" {
+  type        = list(object({
+    path     = string
+    name     = string
+  }))
+  default     = []
+  description = "If not empty synchronises the atlantis.yaml with the repository when atlantis_url is set"
+}
+
+variable "atlantis_workspaces" {
+  type        = list(object({
+    autoplan = bool
+    name     = string
+    workflow = string
+  }))
+  default     = []
+  description = "Specifies workspaces to deploy the modules into. Defaults to default name and workflow with autoplan true"
+}
+
+variable "atlantis_sync_enabled" {
+  type        = bool
+  default     = true
+  description = "Enables sync of atlantis.yaml when there are changes in atlantis_modules or workspaces"
+}
+
+variable "atlantis_url" {
+  type        = string
+  default     = ""
+  description = "URL to the atlantis server. Must be set to enable atlantis"
 }

@@ -2,6 +2,10 @@ locals {
   repository_name   = var.create_repository ? join("", github_repository.repository.*.name) : var.repository_name
   repository_remote = format("git@%s:%s/%s.git", var.github_base_url, var.github_organization, local.repository_name)
   repository_dir    = format("%s/repository", abspath(path.module))
+  status_checks     = concat(
+    var.status_checks, 
+    local.atlantis_enabled ? ["atlantis/plan", "atlantis/apply"] : []
+  )
 }
 
 resource "github_repository" "repository" {
@@ -19,6 +23,7 @@ resource "github_branch_protection" "master" {
   count          = var.create_branch_protection ? 1 : 0
   depends_on     = [
     module.sync_actions_commit,
+    module.sync_atlantis_commit,
   ]
 
   repository     = local.repository_name
@@ -29,6 +34,12 @@ resource "github_branch_protection" "master" {
     dismiss_stale_reviews = false
   }
 
-  # Status check context cannot be created right now
-  #required_status_checks {}
+  dynamic "required_status_checks" {
+    for_each = length(local.status_checks) > 0 ? [1] : []
+
+    content {
+      strict   = true
+      contexts = local.status_checks
+    }
+  }
 }

@@ -6,7 +6,6 @@ homepage_url           = "https://goci.io"
 github_organization    = "goci-io"
 gitignore_template     = "Terraform"
 ssh_key_file           = "~/.ssh/id_rsa"
-create_webhook         = false
 actions                = {
   goci-terraform-change = {
     terraform_dir = "."

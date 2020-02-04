@@ -35,7 +35,7 @@ module "sync_atlantis_commit" {
   git_base_url       = var.github_base_url
   ssh_key_file       = var.ssh_key_file
   templates_root_dir = abspath(path.module)
-  enabled            = local.atlantis_enabled
+  enabled            = local.atlantis_enabled && var.atlantis_sync_enabled
   message            = "[goci] update atlantis.yaml"
   branch             = "goci-update-atlantis"
   changes            = true

@@ -10,6 +10,12 @@ variable "create_branch_protection" {
   description = "Whether to enable branch protection on the master or not"
 }
 
+variable "status_checks" {
+  type        = list(string)
+  default     = []
+  description = "List of status checks to require in order to merge"
+}
+
 variable "repository_name" {
   type        = string
   description = "Name of the git repository"
@@ -119,4 +125,10 @@ variable "atlantis_workspaces" {
   }))
   default     = []
   description = "Specifies workspaces to deploy the modules into. Defaults to default name and workflow with autoplan true"
+}
+
+variable "atlantis_sync_enabled" {
+  type        = bool
+  default     = true
+  description = "Enables sync of atlantis.yaml when there are changes in atlantis_modules or workspaces"
 }

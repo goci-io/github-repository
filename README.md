@@ -55,6 +55,8 @@ You also need to make sure to have a valid token set in `GITHUB_TOKEN` environme
 | actions | Map of actions and config to enable | `{}` |
 | atlantis_modules | List of Terraform modules to enable [atlantis](https://www.runatlantis.io/guide/) for. If not empty it takes care about the repo level atlantis config | `[]` |
 | atlantis_workspaces | List of workspaces to deploy Terraform modules for | `[{ name = "default", workflow = "default" }]` |
+| atlantis_sync_enabled | Enables sync of updated atlantis.yaml. If false no updates are made | `true` |
+| atlantis_url | URL to the atlantis server. Must be set to enable atlantis. | `""` |
 
 Example GitHub-Action configuration:
 ```hcl

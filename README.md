@@ -53,8 +53,10 @@ You also need to make sure to have a valid token set in `GITHUB_TOKEN` environme
 | contributors | List of contributors to add to the initial README | `[]` |
 | ssh_key_file | Path to the SSH key file to use | `~/.ssh/git_rsa` |
 | actions | Map of actions and config to enable | `{}` |
+| atlantis_modules | List of Terraform modules to enable [atlantis](https://www.runatlantis.io/guide/) for. If not empty it takes care about the repo level atlantis config | `[]` |
+| atlantis_workspaces | List of workspaces to deploy Terraform modules for | `[{ name = "default", workflow = "default" }]` |
 
-Example action configuration:
+Example GitHub-Action configuration:
 ```hcl
 actions = {
   template-name = {
@@ -62,6 +64,29 @@ actions = {
   },
   ...
 }
+```
+
+Example [Atlantis](https://www.runatlantis.io/guide/) configuration for the repo level config:
+```hcl
+atlantis_workspaces = [
+  {
+    name     = "staging"
+    workflow = "staging-aws"
+    autoplan = true
+  },
+  {
+    name     = "prod"
+    workflow = "prod-aws"
+    autoplan = true
+  }
+]
+
+atlantis_modules = [
+  {
+    name = "cloudtrail"
+    path = "modules/aws/cloudtrail"
+  }
+]
 ```
 
 The template name should reference a file created in [`templates`](https://github.com/goci-io/github-repository/tree/master/templates) directory ending with `.yaml`.

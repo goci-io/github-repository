@@ -10,7 +10,7 @@ locals {
 }
 
 module "initial_atlantis_commit" {
-  source             = "git::https://github.com/goci-io/terraform-git-commit.git?ref=master"
+  source             = "git::https://github.com/goci-io/terraform-git-commit.git?ref=tags/0.2.0"
   commit_depends_on  = [module.initial_readme_commit]
   git_repository     = local.repository_name
   git_organization   = var.github_organization
@@ -33,7 +33,7 @@ module "initial_atlantis_commit" {
 }
 
 module "sync_atlantis_commit" {
-  source             = "git::https://github.com/goci-io/terraform-git-commit.git?ref=master"
+  source             = "git::https://github.com/goci-io/terraform-git-commit.git?ref=tags/0.2.0"
   commit_depends_on  = [module.initial_atlantis_commit]
   git_repository     = local.repository_name
   git_organization   = var.github_organization

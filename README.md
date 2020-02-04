@@ -104,3 +104,5 @@ atlantis_modules = [
   }
 ]
 ```
+
+This creates the `atlantis.yaml` repo level configuration and the corresponding webhook to notify atlantis about changes in your infrastructure.

@@ -66,6 +66,12 @@ actions = {
 }
 ```
 
+The template name should reference a file created in [`templates`](https://github.com/goci-io/github-repository/tree/master/templates) directory ending with `.yaml`. By default the following action templates are already included:   
+- [actions/goci-terraform-app-deployment](https://github.com/goci-io/github-repository/tree/master/templates/actions/goci-terraform-app-deployment.yaml)  
+- [actions/goci-terraform-pull-request](https://github.com/goci-io/github-repository/tree/master/templates/actions/goci-terraform-pull-request.yaml)  
+- [actions/goci-terraform-change](https://github.com/goci-io/github-repository/tree/master/templates/actions/goci-terraform-change.yaml)  
+
+
 Example [Atlantis](https://www.runatlantis.io/guide/) configuration for the repo level config:
 ```hcl
 atlantis_workspaces = [
@@ -88,12 +94,6 @@ atlantis_modules = [
   }
 ]
 ```
-
-The template name should reference a file created in [`templates`](https://github.com/goci-io/github-repository/tree/master/templates) directory ending with `.yaml`.
-By default the following action templates are already included:  
-- [actions/goci-terraform-app-deployment](https://github.com/goci-io/github-repository/tree/master/templates/actions/goci-terraform-app-deployment.yaml)  
-- [actions/goci-terraform-pull-request](https://github.com/goci-io/github-repository/tree/master/templates/actions/goci-terraform-pull-request.yaml)  
-- [actions/goci-terraform-change](https://github.com/goci-io/github-repository/tree/master/templates/actions/goci-terraform-change.yaml)  
 
 #### Todos
 - Allow to use without goci context (project- and account-id)  

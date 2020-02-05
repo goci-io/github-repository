@@ -25,7 +25,7 @@ actions = {
   }
 }
 
-atlantis_url     = "https://atlantis.testing.eu1.goci.io/events"
+atlantis_domain  = "https://atlantis.testing.eu1.goci.io/events"
 atlantis_modules = [
   {
     name = "cloudtrail"

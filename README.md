@@ -107,3 +107,21 @@ atlantis_modules = [
 ```
 
 This creates the `atlantis.yaml` repo level configuration and the corresponding webhook to notify atlantis about changes in your infrastructure.
+
+##### Example `additional_commits` configuration
+```hcl
+additional_template_dir = abspath(path.module)
+additional_commits      = {
+  "templates/my-file" = {
+    target = "dir/file"
+    data   = {
+      template_variable = "value"
+    }
+  }
+}
+```
+
+This configuration will create a file called `file` within the `dir` directory. Before committing the file all terraform variables are replaced.
+Therefore you also always need to make sure to escape `$` in your template files with `$$`. 
+
+If you need to make different commits, enable or stop sync of specific files you may want to use [terraform-git-commit](https://github.com/goci-io/terraform-git-commit) module and configure it specifically for your needs.

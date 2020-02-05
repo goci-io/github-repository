@@ -8,7 +8,7 @@ data "null_data_source" "workflows" {
   }
 }
 
-locals {
+locals {
   readme_data = {
     repository   = local.repository_name
     description  = var.description

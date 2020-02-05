@@ -2,9 +2,15 @@ locals {
   atlantis_enabled    = length(var.atlantis_modules) > 0 && var.atlantis_url != ""
   atlantis_default    = [{ name = "default", workflow = "default", autoplan = true }]
   atlantis_workspaces = length(var.atlantis_workspaces) > 0 ? var.atlantis_workspaces : local.atlantis_default
-  atlantis_webhook    = {
+
+  atlantis_data = {
+    workspaces = local.atlantis_workspaces
+    modules    = var.atlantis_modules
+  }
+
+  atlantis_webhook = {
     name   = "atlantis"
-    url    = var.atlantis_url
+    url    = format("https://%s/events", var.atlantis_url)
     events = ["issue_comment", "pull_request"]
   }
 }
@@ -24,10 +30,7 @@ module "initial_atlantis_commit" {
   paths              = {
     "templates/atlantis.yaml" = {
       target = "atlantis.yaml"
-      data   = {
-        workspaces = local.atlantis_workspaces
-        modules    = var.atlantis_modules
-      }
+      data   = local.atlantis_data
     }
   }
 }
@@ -47,10 +50,7 @@ module "sync_atlantis_commit" {
   paths              = {
     "templates/atlantis.yaml" = {
       target = "atlantis.yaml"
-      data   = {
-        workspaces = local.atlantis_workspaces
-        modules    = var.atlantis_modules
-      }
+      data   = local.atlantis_data
     }
   }
 }

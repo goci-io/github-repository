@@ -150,3 +150,13 @@ variable "atlantis_domain" {
   default     = ""
   description = "Domain of the atlantis server. Must be set to enable atlantis"
 }
+
+variable "pre_commit_config" {
+  type        = list(object({
+    git_remote = string
+    git_rev    = string
+    hooks      = list(string)
+  }))
+  default     = []
+  description = "Pre-Commit hook configuration and repositories to fetch hooks from"
+}

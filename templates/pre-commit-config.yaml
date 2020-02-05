@@ -1,0 +1,8 @@
+%{ for repo in repos ~}
+- repo: git://${repo.git_remote}
+  rev: ${repo.git_rev}
+  hooks:
+    %{ for hook in repo.hooks ~}
+    - id: ${hook}
+    %{ endfor ~}
+%{ endfor ~}

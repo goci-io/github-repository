@@ -65,6 +65,7 @@ You also need to make sure to have a valid token set in `GITHUB_TOKEN` environme
 | atlantis_workspaces | List of workspaces to deploy Terraform modules for | `[{ name = "default", workflow = "default" }]` |
 | atlantis_sync_enabled | Enables sync of updated atlantis.yaml. If false no updates are made | `true` |
 | atlantis_domain | Domain of the atlantis server. Must be set to enable atlantis. | `""` |
+| pre_commit_config | Pre-Commit hook configuration and repositories to fetch hooks from | `[]` |
 
 ##### Example GitHub-Action configuration:
 ```hcl

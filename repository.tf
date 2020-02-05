@@ -22,8 +22,9 @@ resource "github_repository" "repository" {
 resource "github_branch_protection" "master" {
   count          = var.create_branch_protection ? 1 : 0
   depends_on     = [
-    module.sync_actions_commit,
-    module.sync_atlantis_commit,
+    module.initial_readme_commit,
+    module.initial_actions_commit,
+    module.initial_atlantis_commit,
   ]
 
   repository     = local.repository_name

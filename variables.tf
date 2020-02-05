@@ -63,6 +63,12 @@ variable "description" {
   description = "Initial README description text"
 }
 
+variable "readme_sync_enabled" {
+  type        = bool
+  default     = false
+  description = "If enabled the content of the README will be synchronized with the version control system. Usually it is a better idea to manage repository related content within the repository itself and only setup the initial structure."
+}
+
 variable "webhooks" {
   type        = list(any)
   default     = []

@@ -1,5 +1,5 @@
 locals {
-  atlantis_enabled    = length(var.atlantis_modules) > 0 && var.atlantis_url != ""
+  atlantis_enabled    = length(var.atlantis_modules) > 0 && var.atlantis_domain != ""
   atlantis_default    = [{ name = "default", workflow = "default", autoplan = true }]
   atlantis_workspaces = length(var.atlantis_workspaces) > 0 ? var.atlantis_workspaces : local.atlantis_default
 
@@ -10,7 +10,7 @@ locals {
 
   atlantis_webhook = {
     name   = "atlantis"
-    url    = format("https://%s/events", var.atlantis_url)
+    url    = format("https://%s/events", var.atlantis_domain)
     events = ["issue_comment", "pull_request"]
   }
 }

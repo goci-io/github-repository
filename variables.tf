@@ -126,7 +126,7 @@ variable "atlantis_modules" {
     name     = string
   }))
   default     = []
-  description = "If not empty synchronises the atlantis.yaml with the repository when atlantis_url is set"
+  description = "If not empty synchronises the atlantis.yaml with the repository when atlantis_domain is set"
 }
 
 variable "atlantis_workspaces" {
@@ -145,8 +145,8 @@ variable "atlantis_sync_enabled" {
   description = "Enables sync of atlantis.yaml when there are changes in atlantis_modules or workspaces"
 }
 
-variable "atlantis_url" {
+variable "atlantis_domain" {
   type        = string
   default     = ""
-  description = "URL to the atlantis server. Must be set to enable atlantis"
+  description = "Domain of the atlantis server. Must be set to enable atlantis"
 }

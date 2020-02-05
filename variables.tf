@@ -159,3 +159,9 @@ variable "additional_commits" {
   default     = {}
   description = "Additional files to commit. Key of the map must be the path to the file/template"
 }
+
+variable "additional_template_dir" {
+  type        = string
+  default     = "."
+  description = "Path to the directory containing additional files to commit"
+}

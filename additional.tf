@@ -6,7 +6,7 @@ module "initial_additional_commit" {
   git_organization   = var.github_organization
   git_base_url       = var.github_base_url
   ssh_key_file       = var.ssh_key_file
-  templates_root_dir = abspath(path.module)
+  templates_root_dir = var.additional_template_dir
   paths              = var.additional_commits
   message            = "[goci] add initial additional files"
   branch             = "master"
@@ -20,7 +20,7 @@ module "sync_additional_commit" {
   git_organization   = var.github_organization
   git_base_url       = var.github_base_url
   ssh_key_file       = var.ssh_key_file
-  templates_root_dir = abspath(path.module)
+  templates_root_dir = var.additional_template_dir
   paths              = var.additional_commits
   message            = "[goci] update additional files"
   branch             = "goci-update-files"

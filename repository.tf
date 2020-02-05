@@ -25,6 +25,7 @@ resource "github_branch_protection" "master" {
     module.initial_readme_commit,
     module.initial_actions_commit,
     module.initial_atlantis_commit,
+    module.initial_additional_commit,
   ]
 
   repository     = local.repository_name

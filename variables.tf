@@ -63,6 +63,12 @@ variable "description" {
   description = "Initial README description text"
 }
 
+variable "readme_sync_enabled" {
+  type        = bool
+  default     = false
+  description = "If enabled the content of the README will be synchronized with the version control system. Usually it is a better idea to manage repository related content within the repository itself and only setup the initial structure."
+}
+
 variable "webhooks" {
   type        = list(any)
   default     = []
@@ -120,7 +126,7 @@ variable "atlantis_modules" {
     name     = string
   }))
   default     = []
-  description = "If not empty synchronises the atlantis.yaml with the repository when atlantis_url is set"
+  description = "If not empty synchronises the atlantis.yaml with the repository when atlantis_domain is set"
 }
 
 variable "atlantis_workspaces" {
@@ -139,8 +145,8 @@ variable "atlantis_sync_enabled" {
   description = "Enables sync of atlantis.yaml when there are changes in atlantis_modules or workspaces"
 }
 
-variable "atlantis_url" {
+variable "atlantis_domain" {
   type        = string
   default     = ""
-  description = "URL to the atlantis server. Must be set to enable atlantis"
+  description = "Domain of the atlantis server. Must be set to enable atlantis"
 }

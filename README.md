@@ -58,7 +58,7 @@ You also need to make sure to have a valid token set in `GITHUB_TOKEN` environme
 | gitignore_template | Name of the gitignore template to use | - |
 | prp_team | Team of rimary responsible people | - |
 | contributors | List of contributors to add to the initial README | `[]` |
-| ssh_key_file | Path to the SSH key file to use | `~/.ssh/git_rsa` |
+| ssh_key_file | Path to the SSH key file to use. Required to make platform independent git commits | `~/.ssh/git_rsa` |
 | status_checks | List of required status checks before merging. Only used when branch protection is enabled | `[]` |
 | actions | Map of actions and config to enable | `{}` | 
 | atlantis_modules | List of Terraform modules to enable [atlantis](https://www.runatlantis.io/guide/) for. If not empty it takes care about the repo level atlantis config | `[]` |

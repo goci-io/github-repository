@@ -9,7 +9,8 @@ This module provisions a new github repository. A new repository consists of the
 - Initial `README.md`, `LICENSE` and `.gitignore` file  
 - GitHub Actions to build and deploy the project (optional)  
 - Webhook with ability to autogenerate secrets (optional)  
-- [Atlantis](https://www.runatlantis.io/guide/) Repo level configuration (optional) 
+- [Atlantis](https://www.runatlantis.io/guide/) Repo level configuration (optional)  
+- Commit and sync additional files (optional)  
 
 Changes to any file, unrelated to the project itself (eg. github actions), are commited and pushed to a new branch.
 You are responsible to create new pull requests, review and accept them. You can also use this module for an existing repository to deploy settings like branch protection and github actions.

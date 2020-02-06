@@ -152,12 +152,9 @@ variable "atlantis_domain" {
 }
 
 variable "additional_commits" {
-  type        = map(object({
-    target = string
-    data   = any
-  }))
+  type        = any
   default     = {}
-  description = "Additional files to commit. Key of the map must be the path to the file/template"
+  description = "Additional files to commit. Key of the map must be the path to the file/template. Must contain target attribute and additional map of data"
 }
 
 variable "additional_template_dir" {

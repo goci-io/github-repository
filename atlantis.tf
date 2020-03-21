@@ -20,7 +20,7 @@ module "initial_atlantis_commit" {
   git_repository     = local.repository_name
   git_organization   = var.github_organization
   git_base_url       = var.github_base_url
-  ssh_key_file       = var.ssh_key_file
+  ssh_key_file       = local.ssh_key_file_path
   templates_root_dir = abspath(path.module)
   enabled            = local.atlantis_enabled
   message            = "[goci] add initial atlantis repo level config"

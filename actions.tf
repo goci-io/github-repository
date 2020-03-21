@@ -21,14 +21,14 @@ module "initial_actions_commit" {
   git_repository     = local.repository_name
   git_organization   = var.github_organization
   git_base_url       = var.github_base_url
-  ssh_key_file       = var.ssh_key_file
+  ssh_key_file       = local.ssh_key_file_path
   templates_root_dir = abspath(path.module)
   message            = "[goci] add initial github actions"
   branch             = "master"
   changes            = false
   paths              = zipmap(
     data.null_data_source.actions.*.outputs.key, 
-    jsondecode(data.null_data_source.actions.*.outputs.value)
+    jsondecode(format("[%s]", join(",", data.null_data_source.actions.*.outputs.value))
   )
 }
 
@@ -38,13 +38,13 @@ module "sync_actions_commit" {
   git_repository     = local.repository_name
   git_organization   = var.github_organization
   git_base_url       = var.github_base_url
-  ssh_key_file       = var.ssh_key_file
+  ssh_key_file       = local.ssh_key_file_path
   templates_root_dir = abspath(path.module)
   message            = "[goci] update github actions"
   branch             = "goci-update-actions"
   changes            = true
   paths              = zipmap(
     data.null_data_source.actions.*.outputs.key, 
-    jsondecode(data.null_data_source.actions.*.outputs.value)
+    jsondecode(format("[%s]", join(",", data.null_data_source.actions.*.outputs.value))
   )
 }

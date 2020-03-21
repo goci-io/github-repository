@@ -54,6 +54,6 @@ data "github_team" "prp" {
 resource "github_team_repository" "prp" {
   count      = var.prp_team == "" ? 0 : 1
   team_id    = join("", data.github_team.prp.*.id)
-  repository = github_repository.repository.name
+  repository = local.repository_name
   permission = "maintain"
 }

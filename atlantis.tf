@@ -2,12 +2,7 @@ locals {
   atlantis_enabled    = var.atlantis_domain != ""
   atlantis_default    = [{ name = "default", workflow = "default", autoplan = true }]
   atlantis_workspaces = length(var.atlantis_workspaces) > 0 ? var.atlantis_workspaces : local.atlantis_default
-
-  atlantis_data = {
-    workspaces = local.atlantis_workspaces
-  }
-
-  atlantis_webhook = {
+  atlantis_webhook    = {
     name   = "atlantis"
     url    = format("https://%s/events", var.atlantis_domain)
     events = ["issue_comment", "pull_request"]
@@ -29,7 +24,9 @@ module "initial_atlantis_commit" {
   paths              = {
     "templates/atlantis.yaml" = {
       target = "atlantis.yaml"
-      data   = local.atlantis_data
+      data   = {
+        workspaces = local.atlantis_workspaces
+      }
     }
   }
 }

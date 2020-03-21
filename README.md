@@ -58,7 +58,8 @@ You also need to make sure to have a valid token set in `GITHUB_TOKEN` environme
 | license_template | Name of license template to use | `apache-2.0` |
 | gitignore_template | Name of the gitignore template to use | - |
 | prp_team | Team of rimary responsible people | - |
-| ssh_key_file | Path to the SSH key file to use. Required to make platform independent git commits | `~/.ssh/git_rsa` |
+| ssh_key_file | Path to the private SSH key file to use. Leave empty to generate one | `""` |
+| public_ssh_key_file | Path to the SSH key file to upload to github. Leave empty to generate one | `""` |
 | status_checks | List of required status checks before merging. Only used when branch protection is enabled | `[]` |
 | actions | Map of actions and config to enable | `{}` | 
 | atlantis_workspaces | List of workspaces to deploy Terraform modules for | `[{ name = "default", workflow = "default" }]` |

@@ -5,9 +5,9 @@ locals {
 }
 
 resource "tls_private_key" "ci_ssh" {
-  count     = local.generate_ssh_key ? 1 : 0
-  algorithm = "RSA"
-  rsa_bits  = 4096
+  count       = local.generate_ssh_key ? 1 : 0
+  algorithm   = "ECDSA"
+  ecdsa_curve = "P384"
 }
 
 resource "local_file" "private_ssh_ci_key" {

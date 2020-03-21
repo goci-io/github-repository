@@ -86,6 +86,12 @@ variable "is_individual" {
   description = "When a single person name is specified in the github_organization but the token belongs to an individual"
 }
 
+variable "create_team" {
+  type        = bool
+  default     = false
+  description = "If set to true we will try to create the Team specified in prp_team" 
+}
+
 variable "prp_team" {
   type        = string
   default     = ""

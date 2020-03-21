@@ -45,21 +45,3 @@ resource "github_branch_protection" "master" {
     }
   }
 }
-
-data "github_team" "prp" {
-  count = var.prp_team == "" ? 0 : 1
-  slug  = var.prp_team
-}
-
-resource "github_team" "prp" {
-  count       = var.create_team && var.prp_team != "" ? 1 : 0
-  name        = var.prp_team
-  description = "Team responsible for repository ${local.repository_name}"
-}
-
-resource "github_team_repository" "prp" {
-  count      = var.prp_team == "" ? 0 : 1
-  team_id    = coalescelist(github_team.prp.*.id, data.github_team.prp.*.id, list(""))[0]
-  repository = local.repository_name
-  permission = "maintain"
-}

@@ -98,6 +98,12 @@ variable "prp_team" {
   description = "A team of primary responsible people for this project. See also contributors variable"
 }
 
+variable "additional_teams" {
+  type        = list(object({ name = string, permission = string }))
+  default     = []
+  description = "Additional teams to grant access to the repository"
+}
+
 variable "ssh_key_file" {
   type        = string
   default     = ""

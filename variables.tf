@@ -94,8 +94,14 @@ variable "prp_team" {
 
 variable "ssh_key_file" {
   type        = string
-  default     = "~/.ssh/git_rsa"
-  description = "The file path to the ssh key file to use when using git"
+  default     = ""
+  description = "The file path to the ssh key file to use when using git. Generate one if empty"
+}
+
+variable "public_ssh_key_file" {
+  type        = string
+  default     = ""
+  description = "The file path to the public ssh key file to be uploaded to github"
 }
 
 variable "actions" {

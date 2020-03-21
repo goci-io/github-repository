@@ -18,7 +18,7 @@ resource "local_file" "private_ssh_ci_key" {
 }
 
 resource "github_repository_deploy_key" "ci" {
-  count      = var.ssh_key_file != "" && var.public_ssh_key == "" ? 0 : 1
+  count      = var.ssh_key_file != "" && var.public_ssh_key_file == "" ? 0 : 1
   title      = format("%s-tf-deploy", local.repository_name)
   repository = local.repository_name
   key        = local.public_ssh_key

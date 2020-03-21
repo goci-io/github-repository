@@ -63,12 +63,6 @@ variable "description" {
   description = "Initial README description text"
 }
 
-variable "readme_sync_enabled" {
-  type        = bool
-  default     = false
-  description = "If enabled the content of the README will be synchronized with the version control system. Usually it is a better idea to manage repository related content within the repository itself and only setup the initial structure."
-}
-
 variable "webhooks" {
   type        = list(any)
   default     = []
@@ -98,16 +92,6 @@ variable "prp_team" {
   description = "A team of primary responsible people for this project. See also contributors variable"
 }
 
-variable "contributors" {
-  type        = list(object({
-    image_url = string
-    name      = string
-    url       = string
-  }))
-  default     = []
-  description = "List of contributors to add to the README. See also prp_team variable" 
-}
-
 variable "ssh_key_file" {
   type        = string
   default     = "~/.ssh/git_rsa"
@@ -128,12 +112,6 @@ variable "atlantis_workspaces" {
   }))
   default     = []
   description = "Specifies workspaces to deploy the modules into. Defaults to default name and workflow with autoplan true"
-}
-
-variable "atlantis_sync_enabled" {
-  type        = bool
-  default     = true
-  description = "Enables sync of atlantis.yaml when there are changes in atlantis_modules or workspaces"
 }
 
 variable "atlantis_domain" {

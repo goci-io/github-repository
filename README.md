@@ -58,13 +58,10 @@ You also need to make sure to have a valid token set in `GITHUB_TOKEN` environme
 | license_template | Name of license template to use | `apache-2.0` |
 | gitignore_template | Name of the gitignore template to use | - |
 | prp_team | Team of rimary responsible people | - |
-| contributors | List of contributors to add to the initial README | `[]` |
 | ssh_key_file | Path to the SSH key file to use. Required to make platform independent git commits | `~/.ssh/git_rsa` |
 | status_checks | List of required status checks before merging. Only used when branch protection is enabled | `[]` |
 | actions | Map of actions and config to enable | `{}` | 
-| atlantis_modules | List of Terraform modules to enable [atlantis](https://www.runatlantis.io/guide/) for. If not empty it takes care about the repo level atlantis config | `[]` |
 | atlantis_workspaces | List of workspaces to deploy Terraform modules for | `[{ name = "default", workflow = "default" }]` |
-| atlantis_sync_enabled | Enables sync of updated atlantis.yaml. If false no updates are made | `true` |
 | atlantis_domain | Domain of the atlantis server. Must be set to enable atlantis. | `""` |
 | additional_commits | List of objects with additional templatefiles to commit and sync | `[]` |
 | additional_template_dir | Path to the template directory containing your additional files | `"."` | 

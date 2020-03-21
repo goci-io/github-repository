@@ -26,7 +26,10 @@ module "initial_actions_commit" {
   message            = "[goci] add initial github actions"
   branch             = "master"
   changes            = false
-  paths              = zipmap(data.null_data_source.actions.*.outputs.key, jsondecode(format("[%s]", join(",", data.null_data_source.actions.*.outputs.value))))
+  paths              = zipmap(
+    data.null_data_source.actions.*.outputs.key, 
+    jsondecode(format("[%s]", join(",", data.null_data_source.actions.*.outputs.value)))
+  )
 }
 
 module "sync_actions_commit" {
@@ -40,5 +43,8 @@ module "sync_actions_commit" {
   message            = "[goci] update github actions"
   branch             = "goci-update-actions"
   changes            = true
-  paths              = zipmap(data.null_data_source.actions.*.outputs.key, jsondecode(format("[%s]", join(",", data.null_data_source.actions.*.outputs.value))))
+  paths              = zipmap(
+    data.null_data_source.actions.*.outputs.key, 
+    jsondecode(format("[%s]", join(",", data.null_data_source.actions.*.outputs.value)))
+  )
 }

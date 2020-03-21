@@ -45,3 +45,15 @@ resource "github_branch_protection" "master" {
     }
   }
 }
+
+data "github_team" "prp" {
+  count = var.prp_team == "" ? 0 : 1
+  slug  = var.prp_team
+}
+
+resource "github_team_repository" "prp" {
+  count      = var.prp_team == "" ? 0 : 1
+  team_id    = join("", data.github_team.prp.*.id)
+  repository = github_repository.repository.name
+  permission = "maintain"
+}

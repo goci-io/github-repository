@@ -5,6 +5,7 @@ terraform {
     random = "~> 2.2"
     null   = "~> 2.1"
     local  = "~> 1.3"
+    tls    = "~> 2.1"
   }
 }
 

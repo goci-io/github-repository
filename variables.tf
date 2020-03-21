@@ -120,15 +120,6 @@ variable "actions" {
   description = "GitHub Actions to commit to the repository. Available actions can be found in templates/actions"
 }
 
-variable "atlantis_modules" {
-  type        = list(object({
-    path     = string
-    name     = string
-  }))
-  default     = []
-  description = "If not empty synchronises the atlantis.yaml with the repository when atlantis_domain is set"
-}
-
 variable "atlantis_workspaces" {
   type        = list(object({
     autoplan = bool

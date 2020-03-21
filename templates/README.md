@@ -7,11 +7,3 @@
 %{ if prp_team != "" ~}
 **Maintained by [@${organization}/${prp_team}](https://github.com/orgs/${organization}/teams/${prp_team})**
 %{ endif ~}
-
-${description}
-
-%{ if length(contributors) > 0 ~}
-### Contributors
-
-%{ for contributor in contributors ~}[![${contributor.name}](${contributor.image_url}) =96x](${contributor.url})%{ endfor ~}
-%{ endif ~}

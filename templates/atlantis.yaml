@@ -1,13 +1,11 @@
 version: 3
 projects:
-%{ for module in modules ~}
 %{ for workspace in workspaces ~}
-- dir: ${module.path}
-  name: ${module.name}
+- dir: .
+  name: main
   workflow: ${workspace.workflow}
   workspace: ${workspace.name}
   autoplan:
-    when_modified: ["${module.path}/*.tf", "*.tf*"]
+    when_modified: ["*.tf", "*.tf*"]
     enabled: ${workspace.autoplan}
-%{ endfor ~}
 %{ endfor ~}

@@ -1,7 +1,7 @@
 locals {
+  generate_ssh_key  = var.public_ssh_key_file == "" || var.ssh_key_file == ""
   ssh_key_file_path = local.generate_ssh_key ? join("", local_file.private_ssh_ci_key.*.filename) : var.ssh_key_file
   public_ssh_key    = local.generate_ssh_key ? join("", tls_private_key.ci_ssh.*.public_key_openssh) : file(var.public_ssh_key_file)
-  generate_ssh_key  = (var.public_ssh_key_file == "" || !fileexists(var.public_ssh_key_file)) && (var.ssh_key_file == "" || !fileexists(var.ssh_key_file))
 }
 
 resource "tls_private_key" "ci_ssh" {

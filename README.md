@@ -79,10 +79,7 @@ actions = {
 }
 ```
 
-The template name should reference a file created in [`templates`](https://github.com/goci-io/github-repository/tree/master/templates) directory ending with `.yaml`. By default the following action templates are already included:   
-- [actions/goci-terraform-app-deployment](https://github.com/goci-io/github-repository/tree/master/templates/actions/goci-terraform-app-deployment.yaml)  
-- [actions/goci-terraform-pull-request](https://github.com/goci-io/github-repository/tree/master/templates/actions/goci-terraform-pull-request.yaml)  
-- [actions/goci-terraform-change](https://github.com/goci-io/github-repository/tree/master/templates/actions/goci-terraform-change.yaml)  
+The template name should reference a file created in [`templates`](https://github.com/goci-io/github-repository/tree/master/templates) directory ending with `.yaml`.
 
 ##### Example [Atlantis](https://www.runatlantis.io/guide/) configuration for the repo level config:
 ```hcl
@@ -96,13 +93,6 @@ atlantis_workspaces = [
     name     = "prod"
     workflow = "prod-aws"
     autoplan = true
-  }
-]
-
-atlantis_modules = [
-  {
-    name = "cloudtrail"
-    path = "modules/aws/cloudtrail"
   }
 ]
 ```

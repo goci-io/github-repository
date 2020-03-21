@@ -11,6 +11,7 @@ data "null_data_source" "workflows" {
 locals {
   readme_data = {
     repository   = local.repository_name
+    description  = var.description
     github_url   = var.github_base_url
     organization = var.github_organization
     workflows    = data.null_data_source.workflows.*.outputs.name

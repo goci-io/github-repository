@@ -6,6 +6,7 @@ locals {
     name   = "atlantis"
     url    = format("https://%s/events", var.atlantis_domain)
     events = ["issue_comment", "pull_request"]
+    secret = var.atlantis_webhook_secret
   }
 }
 

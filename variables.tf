@@ -138,6 +138,12 @@ variable "atlantis_domain" {
   description = "Domain of the atlantis server. Must be set to enable atlantis"
 }
 
+variable "atlantis_webhook_secret" {
+  type        = string
+  default     = ""
+  description = "Webhook secret to use for atlantis. It must be the same secret for all repositories" 
+}
+
 variable "additional_commits" {
   type        = any
   default     = {}

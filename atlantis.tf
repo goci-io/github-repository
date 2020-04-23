@@ -19,9 +19,9 @@ module "initial_atlantis_commit" {
   ssh_key_file       = local.ssh_key_file_path
   templates_root_dir = abspath(path.module)
   enabled            = local.atlantis_enabled
-  message            = "[goci] add initial atlantis repo level config"
-  branch             = "master"
-  changes            = false
+  message            = "[goci] atlantis repo level config"
+  branch             = var.atlantis_branch
+  changes            = var.atlantis_observe_changes
   paths              = {
     "templates/atlantis.yaml" = {
       target = "atlantis.yaml"

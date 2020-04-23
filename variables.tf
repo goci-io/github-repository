@@ -98,6 +98,12 @@ variable "prp_team" {
   description = "A team of primary responsible people for this project. See also contributors variable"
 }
 
+variable "create_readme" {
+  type        = bool
+  default     = true
+  description = "Whether to commit an initial README file. Defaults to false when create_repository is set to false"
+}
+
 variable "additional_teams" {
   type        = list(object({ name = string, permission = string }))
   default     = []
@@ -142,6 +148,18 @@ variable "atlantis_webhook_secret" {
   type        = string
   default     = ""
   description = "Webhook secret to use for atlantis. It must be the same secret for all repositories" 
+}
+
+variable "atlantis_observe_changes" {
+  type        = bool
+  default     = true
+  description = "When there are a changes to the template a new commit will be created"
+}
+
+variable "atlantis_branch" {
+  type        = string
+  default     = "atlantis"
+  description = "The branch changes to atlantis files should be pushed to"
 }
 
 variable "additional_commits" {

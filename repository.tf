@@ -32,8 +32,12 @@ resource "github_branch_protection" "master" {
   branch         = "master"
   enforce_admins = true
 
-  required_pull_request_reviews {
-    dismiss_stale_reviews = false
+  dynamic "required_pull_request_reviews" {
+    for_each = var.require_review ? [1] : []
+
+    content {
+      dismiss_stale_reviews = false
+    }
   }
 
   dynamic "required_status_checks" {

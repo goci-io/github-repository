@@ -1,6 +1,6 @@
 locals {
+  prp_team_attachment = var.prp_team == "" ? [] : [{ name = var.prp_team }]
   team_attachments    = concat(var.additional_teams, local.prp_team_attachment)
-  prp_team_attachment = var.prp_team == "" ? [] : [{ name = var.prp_team, permission = "maintain" }]
 }
 
 resource "github_team" "prp" {
@@ -29,4 +29,8 @@ resource "github_team_repository" "prp" {
   team_id    = element(data.null_data_source.teams.*.outputs.id, count.index)
   permission = element(data.null_data_source.teams.*.outputs.permission, count.index)
   repository = local.repository_name
+
+  lifecycle {
+    ignore_changes = ["etag", "team_id"]
+  }
 }

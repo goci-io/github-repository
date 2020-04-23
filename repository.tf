@@ -52,7 +52,7 @@ resource "github_branch_protection" "master" {
 }
 
 resource "github_actions_secret" "secret" {
-  count            = length(local.repository_secrets) : 0
+  count            = length(local.repository_secrets)
   repository       = local.repository_name
   secret_name      = local.repository_secrets[count.index]
   plaintext_value  = lookup(var.action_secrets, local.repository_secrets[count.index])

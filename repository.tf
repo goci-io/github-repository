@@ -4,7 +4,7 @@ locals {
   repository_dir    = format("%s/repository", abspath(path.module))
   status_checks     = concat(
     var.status_checks, 
-    local.atlantis_enabled ? ["atlantis/plan", "atlantis/apply"] : []
+    local.atlantis_enabled ? ["atlantis/plan"] : []
   )
 }
 

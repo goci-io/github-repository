@@ -1,8 +1,9 @@
 locals {
-  repository_name   = var.create_repository ? join("", github_repository.repository.*.name) : var.repository_name
-  repository_remote = format("git@%s:%s/%s.git", var.github_base_url, var.github_organization, local.repository_name)
-  repository_dir    = format("%s/repository", abspath(path.module))
-  status_checks     = concat(
+  repository_secrets = keys(var.action_secrets)
+  repository_name    = var.create_repository ? join("", github_repository.repository.*.name) : var.repository_name
+  repository_remote  = format("git@%s:%s/%s.git", var.github_base_url, var.github_organization, local.repository_name)
+  repository_dir     = format("%s/repository", abspath(path.module))
+  status_checks      = concat(
     var.status_checks, 
     local.atlantis_enabled ? ["atlantis/plan"] : []
   )
@@ -48,4 +49,11 @@ resource "github_branch_protection" "master" {
       contexts = local.status_checks
     }
   }
+}
+
+resource "github_actions_secret" "secret" {
+  count            = var.enabled ? length(local.repository_secrets) : 0
+  repository       = local.repository_name
+  secret_name      = local.repository_secrets[count.index]
+  plaintext_value  = lookup(var.action_secrets, local.repository_secrets[count.index])
 }

@@ -116,6 +116,12 @@ variable "additional_teams" {
   description = "Additional teams to grant access to the repository"
 }
 
+variable "action_secrets" {
+  type        = map(string)
+  default     = {}
+  description = "Secrets to be added to the repository"
+}
+
 variable "ssh_key_file" {
   type        = string
   default     = ""

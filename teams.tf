@@ -31,6 +31,6 @@ resource "github_team_repository" "prp" {
   repository = local.repository_name
 
   lifecycle {
-    ignore_changes = ["etag", "team_id"]
+    ignore_changes = ["etag"]
   }
 }

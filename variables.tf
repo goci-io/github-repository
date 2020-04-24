@@ -36,13 +36,13 @@ variable "repository_description" {
 variable "homepage_url" {
   type        = string
   default     = ""
-  description = "Homepage url to reference on the repository page on github" 
+  description = "Homepage url to reference on the repository page on github"
 }
 
 variable "topics" {
   type        = list(string)
   default     = []
-  description = "Topics the repository and project is about" 
+  description = "Topics the repository and project is about"
 }
 
 variable "gitignore_template" {
@@ -95,7 +95,7 @@ variable "is_individual" {
 variable "create_team" {
   type        = bool
   default     = false
-  description = "If set to true we will try to create the Team specified in prp_team" 
+  description = "If set to true we will try to create the Team specified in prp_team"
 }
 
 variable "prp_team" {
@@ -147,7 +147,7 @@ variable "actions" {
 }
 
 variable "atlantis_workspaces" {
-  type        = list(object({
+  type = list(object({
     autoplan = bool
     name     = string
     workflow = string
@@ -165,7 +165,7 @@ variable "atlantis_domain" {
 variable "atlantis_webhook_secret" {
   type        = string
   default     = ""
-  description = "Webhook secret to use for atlantis. It must be the same secret for all repositories" 
+  description = "Webhook secret to use for atlantis. It must be the same secret for all repositories"
 }
 
 variable "atlantis_observe_changes" {
@@ -194,6 +194,6 @@ variable "additional_template_dir" {
 
 variable "repository_checkout_dir" {
   type        = string
-  type        = "/conf/git/checkout"
+  default     = "/conf/git/checkout"
   description = "Directory to clone repositories to"
 }

@@ -13,5 +13,6 @@ terraform {
 provider "github" {
   version      = "~> 2.2"
   individual   = var.is_individual
+  token        = var.github_token
   organization = var.github_organization
 }

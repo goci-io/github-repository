@@ -113,6 +113,6 @@ additional_commits      = {
 ```
 
 This configuration will create a file called `file` within the `dir` directory. Before committing the file all terraform variables are replaced.
-Therefore you also always need to make sure to escape `$` in your template files with `$$`. 
+Therefore you also always need to make sure to escape `${}` in your template files with `$${}`. 
 
 If you need to make different commits, enable or stop sync of specific files you may want to use [terraform-git-commit](https://github.com/goci-io/terraform-git-commit) module and configure it specifically for your needs.

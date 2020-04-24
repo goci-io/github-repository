@@ -46,6 +46,7 @@ You also need to make sure to have a valid token set in `GITHUB_TOKEN` environme
 |-----------------|----------------------------------------|---------|
 | github_base_url | The base url to github | `github.com` |
 | github_organization | The organization name to create resources for | - |
+| github_token | Github token to use to manage settings. Defaults to environment variable `GITHUB_TOKEN` | `""` |
 | create_repository | Creates the repository if set to true | `true` |
 | repository_name | The name of the repository | - |
 | repository_description | Short description of the repository | `Repository created by goci-io/github-repository` |

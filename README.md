@@ -1,8 +1,8 @@
 # github-repository
 
-The first rule of `github-repository` is don't talk about `github-repository`
-
 **Maintained by [@goci-io/prp-terraform](https://github.com/orgs/goci-io/teams/prp-terraform)**
+
+![Terraform Validate](https://github.com/goci-io/github-repository/workflows/Terraform%20Validate/badge.svg)
 
 This module provisions a new github repository. A new repository consists of the following:
 

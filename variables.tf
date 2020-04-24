@@ -191,3 +191,9 @@ variable "additional_template_dir" {
   default     = "."
   description = "Path to the directory containing additional files to commit"
 }
+
+variable "repository_checkout_dir" {
+  type        = string
+  type        = "/conf/git/checkout"
+  description = "Directory to clone repositories to"
+}

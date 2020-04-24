@@ -38,7 +38,9 @@ module "repository" {
 ```
 
 Look into the [terraform.tfvars](terraform.tfvars.example) example file or find more variables in the [variables.tf](variables.tf).
-You also need to make sure to have a valid token set in `GITHUB_TOKEN` environment variable to configure the terraform provider.
+You also need to make sure to have a valid token set in `GITHUB_TOKEN` environment variable to configure the terraform provider or set terraform variable `github_token`.
+
+In case the repository already exists but you still want to configure settings you can set `create_repository` to false.
 
 ### Configuration
 

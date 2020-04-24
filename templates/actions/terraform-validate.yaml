@@ -5,6 +5,12 @@ jobs:
   terraform:
     name: 'Terraform'
     runs-on: ubuntu-latest
+%{ if length(environment) > 0 ~}
+    env:
+%{ for key, val in environment ~}
+      ${key}: "${val}"
+%{ endfor ~}
+%{ endif ~}
     steps:
       - name: 'Checkout'
         uses: actions/checkout@master
@@ -22,9 +28,6 @@ jobs:
           tf_actions_subcommand: 'init'
         env:
           GITHUB_TOKEN: $${{ secrets.GITHUB_TOKEN }}
-%{ for key, val in environment ~}
-          ${key}: "${val}"
-%{ endfor ~}
       - name: 'Terraform Validate'
         uses: hashicorp/terraform-github-actions@v0.8.0
         with:

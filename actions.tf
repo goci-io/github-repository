@@ -24,10 +24,9 @@ module "initial_actions_commit" {
   ssh_key_file            = local.ssh_key_file_path
   templates_root_dir      = abspath(path.module)
   repository_checkout_dir = var.repository_checkout_dir
-  enabled                 = var.create_repository
+  enabled                 = var.enabled && var.create_repository
   message                 = "[goci] add initial github actions"
   branch                  = "master"
-  enabled                 = var.enabled
   changes                 = false
   paths = zipmap(
     data.null_data_source.actions.*.outputs.key,

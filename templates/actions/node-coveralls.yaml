@@ -1,0 +1,26 @@
+name: Coveralls
+on: [push]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        node: [ ${join(",", node_versions)} ]
+    name: Node ${{ matrix.node }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+      - name: Setup node
+        uses: actions/setup-node@v1
+        with:
+          node-version: $${{ matrix.node }}
+      - run: node --version
+      - run: npm --version
+      - run: npm install
+      - run: npm run coverage
+      - name: Coveralls Parallel
+        uses: coverallsapp/github-action@master
+        with:
+          github-token: $${{ secrets.GITHUB_TOKEN }}
+          path-to-lcov: ./coverage/lcov.info

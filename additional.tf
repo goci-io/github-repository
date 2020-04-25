@@ -27,6 +27,6 @@ module "sync_additional_commit" {
   paths                   = var.additional_commits
   message                 = "[goci] update additional files"
   branch                  = "goci-update-files"
-  enabled                 = var.enabled
+  enabled                 = var.sync_additional_commits && var.enabled
   changes                 = true
 }

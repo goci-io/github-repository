@@ -198,6 +198,12 @@ variable "additional_template_dir" {
   description = "Path to the directory containing additional files to commit"
 }
 
+variable "sync_additional_commits" {
+  type        = bool
+  default     = false
+  description = "Creates new branches for changes in the tempate files"
+}
+
 variable "repository_checkout_dir" {
   type        = string
   default     = "/conf/git/checkout"

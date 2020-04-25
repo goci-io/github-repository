@@ -28,7 +28,7 @@ module "initial_readme_commit" {
   ssh_key_file            = local.ssh_key_file_path
   repository_checkout_dir = var.repository_checkout_dir
   templates_root_dir      = abspath(path.module)
-  enabled                 = var.create_readme && var.create_repository
+  enabled                 = var.enabled && var.create_readme && var.create_repository
   message                 = "[goci] add initial README.md"
   branch                  = "master"
   changes                 = false

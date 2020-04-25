@@ -20,7 +20,7 @@ jobs:
       - run: npm install
       - run: npm run coverage
       - name: Coveralls Parallel
-        uses: coverallsapp/github-action@master
+        uses: coverallsapp/github-action@v1.1.0
         with:
           github-token: $${{ secrets.GITHUB_TOKEN }}
           path-to-lcov: ./coverage/lcov.info

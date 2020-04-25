@@ -1,5 +1,5 @@
 locals {
-  atlantis_enabled    = var.atlantis_domain != ""
+  atlantis_enabled    = var.atlantis_domain != "" && var.enabled
   atlantis_default    = [{ name = "default", workflow = "default", autoplan = true }]
   atlantis_workspaces = length(var.atlantis_workspaces) > 0 ? var.atlantis_workspaces : local.atlantis_default
   atlantis_webhook = {

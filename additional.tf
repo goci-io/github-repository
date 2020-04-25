@@ -11,6 +11,7 @@ module "initial_additional_commit" {
   paths                   = var.additional_commits
   message                 = "[goci] add initial additional files"
   branch                  = "master"
+  enabled                 = var.enabled
   changes                 = false
 }
 
@@ -26,5 +27,6 @@ module "sync_additional_commit" {
   paths                   = var.additional_commits
   message                 = "[goci] update additional files"
   branch                  = "goci-update-files"
+  enabled                 = var.enabled
   changes                 = true
 }

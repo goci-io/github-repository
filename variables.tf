@@ -1,3 +1,9 @@
+variable "enabled" {
+  type        = bool
+  default     = true
+  description = "Whether to create resources at all"
+}
+
 variable "create_repository" {
   type        = bool
   default     = true

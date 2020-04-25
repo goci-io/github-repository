@@ -23,6 +23,7 @@ module "initial_atlantis_commit" {
   message                 = "[goci] atlantis repo level config"
   branch                  = var.atlantis_branch
   changes                 = var.atlantis_observe_changes
+  enabled                 = var.enabled
   paths = {
     "templates/atlantis.yaml" = {
       target = "atlantis.yaml"

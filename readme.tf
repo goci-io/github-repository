@@ -31,6 +31,7 @@ module "initial_readme_commit" {
   enabled                 = var.create_readme && var.create_repository
   message                 = "[goci] add initial README.md"
   branch                  = "master"
+  enabled                 = var.enabled
   changes                 = false
   paths = {
     "templates/README.md" = {

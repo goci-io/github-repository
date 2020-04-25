@@ -10,7 +10,7 @@ locals {
 }
 
 resource "github_repository" "repository" {
-  count              = var.create_repository ? 1 : 0
+  count              = var.enabled && var.create_repository ? 1 : 0
   name               = var.repository_name
   private            = var.repository_visibility_private
   description        = var.repository_description
@@ -21,7 +21,7 @@ resource "github_repository" "repository" {
 }
 
 resource "github_branch_protection" "master" {
-  count = var.create_branch_protection ? 1 : 0
+  count = var.enabled && var.create_branch_protection ? 1 : 0
   depends_on = [
     module.initial_readme_commit,
     module.initial_actions_commit,
@@ -52,7 +52,7 @@ resource "github_branch_protection" "master" {
 }
 
 resource "github_actions_secret" "secret" {
-  count           = length(local.repository_secrets)
+  count           = var.enabled ? length(local.repository_secrets) : 0
   repository      = local.repository_name
   secret_name     = local.repository_secrets[count.index]
   plaintext_value = lookup(var.action_secrets, local.repository_secrets[count.index])

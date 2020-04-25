@@ -23,6 +23,7 @@ jobs:
         with:
           tf_actions_version: 0.12.24
           tf_actions_subcommand: 'init'
+          args: '-backend=false'
       - name: 'Terraform Validate'
         uses: hashicorp/terraform-github-actions@v0.8.0
         with:

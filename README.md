@@ -71,6 +71,7 @@ In case the repository already exists but you still want to configure settings y
 | atlantis_domain | Domain of the atlantis server. Must be set to enable atlantis. | `""` |
 | additional_commits | List of objects with additional templatefiles to commit and sync | `[]` |
 | additional_template_dir | Path to the template directory containing your additional files | `"."` | 
+| sync_additional_commits | Creates new branches for changes in the tempate files | `false` |
 
 ##### Example GitHub-Action configuration:
 ```hcl

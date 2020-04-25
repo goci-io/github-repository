@@ -1,4 +1,4 @@
-name: Test and Coverage
+name: Coveralls
 on: [push]
 jobs:
   build:

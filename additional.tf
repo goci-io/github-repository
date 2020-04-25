@@ -10,8 +10,8 @@ module "initial_additional_commit" {
   templates_root_dir      = var.additional_template_dir
   paths                   = var.additional_commits
   message                 = "[goci] add initial additional files"
+  enabled                 = var.enabled && var.create_repository
   branch                  = "master"
-  enabled                 = var.enabled
   changes                 = false
 }
 

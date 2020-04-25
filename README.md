@@ -46,6 +46,7 @@ In case the repository already exists but you still want to configure settings y
 
 | Name | Description | Default |
 |-----------------|----------------------------------------|---------|
+| enabled | Whether to create any resources at all | `true` |
 | github_base_url | The base url to github | `github.com` |
 | github_organization | The organization name to create resources for | - |
 | github_token | Github token to use to manage settings. Defaults to environment variable `GITHUB_TOKEN` | `""` |

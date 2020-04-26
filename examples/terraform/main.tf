@@ -15,7 +15,6 @@ module "tf_example_repo" {
   gitignore_template            = "Terraform"
   github_organization           = "goci-io"
   repository_visibility_private = false
-  create_repository             = false # Manually created to remove need of state file
   repository_checkout_dir       = abspath("${path.module}/checkout")
   status_checks                 = ["Terraform Validate"]
   topics                        = ["terraform", "github", "example"]

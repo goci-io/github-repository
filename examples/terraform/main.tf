@@ -1,4 +1,9 @@
-variable "github_token" {}
+variable "deploy_ssh_key" {}
+
+resource "local_file" "deploy_key" {
+  filename          = "${path.module}/deploy-key"
+  sensitive_content = var.deploy_ssh_key
+}
 
 module "tf_example_repo" {
   source                        = "../../"
@@ -11,6 +16,7 @@ module "tf_example_repo" {
   repository_visibility_private = false
   create_repository             = false # Manually created to remove need of state file
   repository_checkout_dir       = abspath("${path.module}/checkout")
+  ssh_key_file                  = local_file.deploy_key.filename
   status_checks                 = ["Terraform Validate"]
   topics                        = ["terraform", "github", "example"]
   actions = {

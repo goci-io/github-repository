@@ -116,6 +116,17 @@ variable "prp_team" {
   description = "A team of primary responsible people for this project. See also contributors variable"
 }
 
+variable "labels" {
+  type        = list(object({
+    name  = string
+    color = string
+    # url = string
+    # description = string
+  }))
+  default     = {}
+  description = "Issue labels for this repository"
+}
+
 variable "require_review" {
   type        = bool
   default     = true

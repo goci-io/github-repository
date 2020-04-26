@@ -58,3 +58,12 @@ resource "github_actions_secret" "secret" {
   secret_name     = local.repository_secrets[count.index]
   plaintext_value = lookup(var.action_secrets, local.repository_secrets[count.index])
 }
+
+resource "github_issue_label" "label" {
+  count           = var.enabled ? length(var.labels) : 0
+  repository      = local.repository_name
+  name            = lookup(var.labels[count.index], "name")
+  color           = lookup(var.labels[count.index], "color")
+  url             = lookup(var.labels[count.index], "url", "")
+  description     = lookup(var.labels[count.index], "description", "")
+}

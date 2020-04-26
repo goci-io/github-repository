@@ -3,7 +3,7 @@ on:
   - pull_request
 jobs:
   terraform:
-    name: 'Terraform Plan'
+    name: 'Terraform'
     runs-on: ubuntu-latest
     env:
       TF_INPUT: '0'

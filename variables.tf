@@ -147,7 +147,7 @@ variable "public_ssh_key_file" {
 }
 
 variable "actions" {
-  type        = map(map(any))
+  type        = map(any)
   default     = {}
   description = "GitHub Actions to commit to the repository. Available actions can be found in templates/actions"
 }

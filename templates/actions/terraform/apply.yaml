@@ -1,0 +1,36 @@
+name: '${name}'
+on:
+  push:
+    branches:
+      - master
+jobs:
+  terraform:
+    name: '${name}'
+    runs-on: ubuntu-latest
+    env:
+      TF_INPUT: '0'
+      GITHUB_TOKEN: $${{ secrets.GITHUB_TOKEN }}
+%{ for key, val in environment ~}
+      ${key}: '${val}'
+%{ endfor ~}
+    steps:
+      - name: 'Checkout'
+        uses: actions/checkout@master
+      - name: 'Terraform Init'
+        uses: hashicorp/terraform-github-actions@v0.8.0
+        with:
+          tf_actions_version: 0.12.24
+          tf_actions_subcommand: 'init'
+          args: '-backend=false'
+      - name: 'Terraform Plan'
+        uses: hashicorp/terraform-github-actions@v0.8.0
+        with:
+          tf_actions_version: 0.12.24
+          tf_actions_subcommand: 'plan'
+          args: '-out plan.tfstate'
+      - name: 'Terraform Plan'
+        uses: hashicorp/terraform-github-actions@v0.8.0
+        with:
+          tf_actions_version: 0.12.24
+          tf_actions_subcommand: 'apply'
+          args: 'plan.tfstate'

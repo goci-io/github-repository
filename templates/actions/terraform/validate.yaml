@@ -3,6 +3,13 @@ on:
   - pull_request
 jobs:
   terraform:
+    strategy:
+      fail-fast: false
+      matrix:
+        stack:
+%{ for wd in working_dirs ~}
+          - ${wd}
+%{ endfor ~}
     name: 'Terraform'
     runs-on: ubuntu-latest
 %{ if length(environment) > 0 ~}
@@ -20,6 +27,7 @@ jobs:
         with:
           tf_actions_version: 0.12.24
           tf_actions_subcommand: 'fmt'
+          tf_actions_working_dir: $${{ matrix.stack }}
           tf_actions_comment: false
 %{ endif ~}
       - name: 'Terraform Init'
@@ -27,6 +35,7 @@ jobs:
         with:
           tf_actions_version: 0.12.24
           tf_actions_subcommand: 'init'
+          tf_actions_working_dir: $${{ matrix.stack }}
           tf_actions_comment: false
           args: '-backend=false'
       - name: 'Terraform Validate'
@@ -34,4 +43,5 @@ jobs:
         with:
           tf_actions_version: 0.12.24
           tf_actions_subcommand: 'validate'
+          tf_actions_working_dir: $${{ matrix.stack }}
           tf_actions_comment: false

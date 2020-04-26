@@ -1,14 +1,10 @@
-variable "deploy_ssh_key" {}
+variable "github_token" {}
 
 provider "github" {
   alias        = "example"
   version      = "~> 2.2"
   organization = "goci-io"
-}
-
-resource "local_file" "deploy_key" {
-  filename          = "${path.module}/deploy-key"
-  sensitive_content = var.deploy_ssh_key
+  token        = var.github_token
 }
 
 module "tf_example_repo" {
@@ -22,7 +18,6 @@ module "tf_example_repo" {
   repository_visibility_private = false
   create_repository             = false # Manually created to remove need of state file
   repository_checkout_dir       = abspath("${path.module}/checkout")
-  ssh_key_file                  = local_file.deploy_key.filename
   status_checks                 = ["Terraform Validate"]
   topics                        = ["terraform", "github", "example"]
   actions = {

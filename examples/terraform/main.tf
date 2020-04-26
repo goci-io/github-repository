@@ -20,9 +20,7 @@ module "tf_example_repo" {
     "terraform/apply" = {
       name        = "Terraform Example"
       working_dir = "."
-      environment = {
-        TF_VAR_deploy_ssh_key = "$${{ secrets.EXAMPLE_DEPLOY_KEY }}"
-      }
+      environment = {}
     }
   }
 }

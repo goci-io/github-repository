@@ -10,14 +10,15 @@ locals {
 }
 
 resource "github_repository" "repository" {
-  count              = var.enabled && var.create_repository ? 1 : 0
-  name               = var.repository_name
-  private            = var.repository_visibility_private
-  description        = var.repository_description
-  homepage_url       = var.homepage_url
-  topics             = var.topics
-  gitignore_template = var.gitignore_template
-  license_template   = var.license_template
+  count                  = var.enabled && var.create_repository ? 1 : 0
+  name                   = var.repository_name
+  private                = var.repository_visibility_private
+  description            = var.repository_description
+  homepage_url           = var.homepage_url
+  topics                 = var.topics
+  gitignore_template     = var.gitignore_template
+  license_template       = var.license_template
+  delete_branch_on_merge = var.delete_branch_on_merge
 }
 
 resource "github_branch_protection" "master" {

@@ -1,10 +1,7 @@
-variable "github_token" {}
-
 provider "github" {
   alias        = "example"
   version      = "~> 2.2"
   organization = "goci-io"
-  token        = var.github_token
 }
 
 module "tf_example_repo" {

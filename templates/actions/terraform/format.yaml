@@ -6,8 +6,6 @@ jobs:
   terraform:
     name: 'Terraform Format'
     runs-on: ubuntu-latest
-    env:
-      GITHUB_TOKEN: $${{ secrets.GITHUB_TOKEN }}
     steps:
       - name: 'Checkout'
         uses: actions/checkout@master
@@ -16,3 +14,4 @@ jobs:
         with:
           tf_actions_version: 0.12.24
           tf_actions_subcommand: 'fmt'
+          tf_actions_comment: false

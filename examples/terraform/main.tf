@@ -18,7 +18,6 @@ module "tf_example_repo" {
   repository_description        = "Example setup of an repository with Terraform workflow using Github Actions"
   gitignore_template            = "Terraform"
   github_organization           = "goci-io"
-  github_token                  = var.github_token
   repository_visibility_private = false
   create_repository             = false # Manually created to remove need of state file
   repository_checkout_dir       = abspath("${path.module}/checkout")

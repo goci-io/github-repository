@@ -17,9 +17,11 @@ module "tf_example_repo" {
     "terraform/format" = {}
     "terraform/plan" = {
       environment = {}
+      working_dir = "."
     }
     "terraform/apply" = {
       name        = "Terraform Example"
+      working_dir = "."
       environment = {}
     }
   }

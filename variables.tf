@@ -39,6 +39,12 @@ variable "repository_description" {
   description = "Description for the repository"
 }
 
+variable "delete_branch_on_merge" {
+  type        = bool
+  default     = true
+  description = "Automatically delete head branches after merge. Generally its a good idea to keep open branches clean"
+}
+
 variable "homepage_url" {
   type        = string
   default     = ""

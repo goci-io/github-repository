@@ -6,6 +6,13 @@ jobs:
   terraform:
     name: 'Terraform'
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        stack:
+%{ for wd in working_dirs ~}
+          - ${wd}
+%{ endfor ~}
     steps:
       - name: 'Checkout'
         uses: actions/checkout@master
@@ -14,4 +21,5 @@ jobs:
         with:
           tf_actions_version: 0.12.24
           tf_actions_subcommand: 'fmt'
+          tf_actions_working_dir: $${{ matrix.stack }}
           tf_actions_comment: false

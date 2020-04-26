@@ -85,6 +85,12 @@ actions = {
 
 The template name should reference a file created in [`templates`](https://github.com/goci-io/github-repository/tree/master/templates) directory ending with `.yaml`.
 
+##### CI credentials
+
+The SSH-Key given in `ssh_key_file` can be updated at any time. To make changes to your repository and create new branches we use a Github Deploy Key which is limited to the scope of your repository and stays in sync with your SSH key. We suggest to leave `ssh_key_file` **empty** to autogenerate an SSH key. To rotate the credentials you can simply delete the Deploy Key from Github and a new one will generated for you. 
+
+You either need to provide an already configured Github provider and inject it using `providers = { github = github.my-provider }` or pass `github_token` variable to this module. The token needs to have access to make changes to the repository settings on your behalf and manage deploy keys.
+
 ##### Example [Atlantis](https://www.runatlantis.io/guide/) configuration for the repo level config:
 ```hcl
 atlantis_workspaces = [

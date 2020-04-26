@@ -1,8 +1,9 @@
 variable "deploy_ssh_key" {}
 
 provider "github" {
-  alias   = "example"
-  version = "~> 2.2"
+  alias        = "example"
+  version      = "~> 2.2"
+  organization = "goci-io"
 }
 
 resource "local_file" "deploy_key" {

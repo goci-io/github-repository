@@ -9,7 +9,7 @@ data "null_data_source" "actions" {
   inputs = {
     key = "templates/actions/${local.action_names[count.index]}.yaml"
     value = jsonencode({
-      target = format(".github/workflows/%s.yaml", local.action_names[count.index])
+      target = format(".github/workflows/%s.yaml", replace(local.action_names[count.index], "/", "-"))
       data   = var.actions[local.action_names[count.index]]
     })
   }

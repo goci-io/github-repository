@@ -117,7 +117,7 @@ variable "prp_team" {
 }
 
 variable "labels" {
-  type        = list(object({
+  type = list(object({
     name  = string
     color = string
     # url = string

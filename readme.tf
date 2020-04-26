@@ -1,20 +1,9 @@
-
-data "null_data_source" "workflows" {
-  count = length(var.actions)
-
-  inputs = {
-    action = local.action_names[count.index]
-    name   = lookup(var.actions[local.action_names[count.index]], "name", yamldecode(templatefile(format("%s/templates/actions/%s.yaml", path.module, local.action_names[count.index]), var.actions[local.action_names[count.index]])).name)
-  }
-}
-
 locals {
   readme_data = {
     repository   = local.repository_name
     description  = var.description
     github_url   = var.github_base_url
     organization = var.github_organization
-    workflows    = data.null_data_source.workflows.*.outputs.name
     prp_team     = var.prp_team
   }
 }

@@ -64,6 +64,5 @@ resource "github_issue_label" "label" {
   repository  = local.repository_name
   name        = lookup(var.labels[count.index], "name")
   color       = lookup(var.labels[count.index], "color")
-  url         = lookup(var.labels[count.index], "url", "")
   description = lookup(var.labels[count.index], "description", "")
 }

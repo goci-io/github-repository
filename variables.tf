@@ -120,10 +120,9 @@ variable "labels" {
   type = list(object({
     name  = string
     color = string
-    # url = string
     # description = string
   }))
-  default     = {}
+  default     = []
   description = "Issue labels for this repository"
 }
 

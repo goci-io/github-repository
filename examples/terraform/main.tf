@@ -1,5 +1,10 @@
 variable "deploy_ssh_key" {}
 
+provider "github" {
+  alias   = "example"
+  version = "~> 2.2"
+}
+
 resource "local_file" "deploy_key" {
   filename          = "${path.module}/deploy-key"
   sensitive_content = var.deploy_ssh_key
@@ -29,5 +34,9 @@ module "tf_example_repo" {
       working_dir = "."
       environment = {}
     }
+  }
+
+  providers = {
+    github = github.example
   }
 }

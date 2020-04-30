@@ -19,6 +19,9 @@ resource "github_repository" "repository" {
   gitignore_template     = var.gitignore_template
   license_template       = var.license_template
   delete_branch_on_merge = var.delete_branch_on_merge
+  has_wiki               = var.enable_wiki
+  has_issues             = var.enable_issues
+  has_projects           = var.enable_projects
 
   lifecycle {
     prevent_destroy = true

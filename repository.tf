@@ -19,6 +19,10 @@ resource "github_repository" "repository" {
   gitignore_template     = var.gitignore_template
   license_template       = var.license_template
   delete_branch_on_merge = var.delete_branch_on_merge
+
+  lifecycle {
+    prevent_destroy = true
+  }
 }
 
 resource "github_branch_protection" "master" {

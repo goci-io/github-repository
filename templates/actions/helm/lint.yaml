@@ -1,7 +1,11 @@
 name: 'helm'
 on:
-  - push
-  - pull_request
+  pull_request:
+    branches: 
+      - '*'
+  push:
+    branches:
+      - master
 jobs:
   lint:
     name: 'helm/lint'

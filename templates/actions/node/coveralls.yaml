@@ -2,7 +2,6 @@ name: 'node'
 on: [push]
 jobs:
   coveralls:
-    needs: checkout
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false

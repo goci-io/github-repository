@@ -225,3 +225,21 @@ variable "repository_checkout_dir" {
   default     = "/conf/git/checkout"
   description = "Directory to clone repositories to"
 }
+
+variable "enable_projects" {
+  type        = bool
+  default     = false
+  description = "Enables Github Projects for the repository"
+}
+
+variable "enable_issues" {
+  type        = bool
+  default     = true
+  description = "Enables Github Issues for the repository"
+}
+
+variable "enable_wiki" {
+  type        = bool
+  default     = true
+  description = "Enables Github Wiki for the repository"
+}

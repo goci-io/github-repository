@@ -1,11 +1,6 @@
 name: 'node'
 on: [push]
 jobs:
-  checkout:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v1
   coveralls:
     needs: checkout
     runs-on: ubuntu-latest
@@ -15,7 +10,8 @@ jobs:
         node: [ ${join(",", node_versions)} ]
     name: Node $${{ matrix.node }}
     steps:
-
+      - name: 'Checkout'
+        uses: actions/checkout@master
       - name: Setup node
         uses: actions/setup-node@v1
         with:

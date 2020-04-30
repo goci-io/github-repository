@@ -1,10 +1,10 @@
-name: 'Helm Lint'
+name: 'helm'
 on:
   - push
   - pull_request
 jobs:
-  helm:
-    name: 'Helm'
+  lint:
+    name: 'helm/lint'
     runs-on: ubuntu-latest
     env:
       CT_CHART_DIRS: ${chart_dir}

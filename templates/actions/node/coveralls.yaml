@@ -1,16 +1,21 @@
-name: Coveralls
+name: 'node'
 on: [push]
 jobs:
-  build:
+  checkout:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+  coveralls:
+    needs: checkout
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
         node: [ ${join(",", node_versions)} ]
-    name: Node ${{ matrix.node }}
+    name: Node $${{ matrix.node }}
     steps:
-      - name: Checkout
-        uses: actions/checkout@v1
+
       - name: Setup node
         uses: actions/setup-node@v1
         with:

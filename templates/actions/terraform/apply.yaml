@@ -1,11 +1,10 @@
-name: '${name}'
+name: 'terraform'
 on:
   push:
     branches:
       - master
 jobs:
-  terraform:
-    name: 'Terraform'
+  job:
     runs-on: ubuntu-latest
     env:
       TF_INPUT: '0'

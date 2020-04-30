@@ -20,27 +20,59 @@ jobs:
       fail-fast: false
       matrix:
         stack:
-          - .
+%{ for wd in working_dirs ~}
+          - ${wd}
+%{ endfor ~}
     env:
       TF_INPUT: '0'
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      GITHUB_TOKEN: $${{ secrets.GITHUB_TOKEN }}
+%{ for key, val in environment ~}
+      ${key}: '${val}'
+%{ endfor ~}
     steps:
       - name: 'Terraform Init'
         uses: hashicorp/terraform-github-actions@v0.8.0
         with:
           tf_actions_version: 0.12.24
           tf_actions_subcommand: 'init'
-          tf_actions_working_dir: ${{ matrix.stack }}
+          tf_actions_working_dir: $${{ matrix.stack }}
           args: '-backend=false'
+%{ if check_format ~}
       - name: 'Terraform Format'
         uses: hashicorp/terraform-github-actions@v0.8.0
         with:
           tf_actions_version: 0.12.24
           tf_actions_subcommand: 'fmt'
-          tf_actions_working_dir: ${{ matrix.stack }}
+          tf_actions_working_dir: $${{ matrix.stack }}
+%{ endif ~}
       - name: 'Terraform Validate'
         uses: hashicorp/terraform-github-actions@v0.8.0
         with:
           tf_actions_version: 0.12.24
           tf_actions_subcommand: 'validate'
-          tf_actions_working_dir: ${{ matrix.stack }}
+          tf_actions_working_dir: $${{ matrix.stack }}
+%{ if make_plan ~}
+  plan:
+    name: 'terraform/plan'
+    runs-on: ubuntu-latest
+    needs: validate
+    strategy:
+      fail-fast: false
+      matrix:
+        stack:
+%{ for wd in working_dirs ~}
+          - ${wd}
+%{ endfor ~}
+    env:
+      GITHUB_TOKEN: $${{ secrets.GITHUB_TOKEN }}
+%{ for key, val in environment ~}
+      ${key}: '${val}'
+%{ endfor ~}
+    steps:
+      - name: 'Terraform Plan'
+        uses: hashicorp/terraform-github-actions@v0.8.0
+        with:
+          tf_actions_version: 0.12.24
+          tf_actions_subcommand: 'plan'
+          tf_actions_working_dir: $${{ matrix.stack }}
+%{ endif ~}

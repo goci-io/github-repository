@@ -1,4 +1,4 @@
-name: 'terraform-pr'
+name: 'terraform'
 on:
   pull_request:
     branches: 

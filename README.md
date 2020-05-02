@@ -11,6 +11,7 @@ This module provisions a new github repository. A new repository consists of the
 - Webhook with ability to autogenerate secrets (optional)  
 - [Atlantis](https://www.runatlantis.io/guide/) Repo level configuration (optional)  
 - Commit and sync additional files (optional)  
+- Branch protections and repository settings
 
 Changes to any file, unrelated to the project itself (eg. github actions), are commited and pushed to a new branch.
 You are responsible to create new pull requests, review and accept them. You can also use this module for an existing repository to deploy settings like branch protection and github actions.
@@ -71,6 +72,7 @@ In case the repository already exists but you still want to configure settings y
 | status_checks | List of required status checks before merging. Only used when branch protection is enabled | `[]` |
 | actions | Map of actions and config to enable | `{}` | 
 | atlantis_workspaces | List of workspaces to deploy Terraform modules for | `[{ name = "default", workflow = "default" }]` |
+| atlantis_projects | Projects to include for the given workspaces. Defaults to project called main within current directory | `[{ name = "main", directory = "." }]` |
 | atlantis_domain | Domain of the atlantis server. Must be set to enable atlantis. | `""` |
 | additional_commits | List of objects with additional templatefiles to commit and sync | `[]` |
 | additional_template_dir | Path to the template directory containing your additional files | `"."` | 
@@ -79,8 +81,11 @@ In case the repository already exists but you still want to configure settings y
 ##### Example GitHub-Action configuration:
 ```hcl
 actions = {
-  template-name = {
-    config-data-key = value
+  "terraform/pull-request" = {
+    environment  = {}
+    make_plan    = false
+    check_format = true
+    working_dirs = ["."]
   },
   ...
 }
@@ -110,10 +115,11 @@ atlantis_workspaces = [
 ]
 ```
 
-This creates the `atlantis.yaml` repo level configuration and the corresponding webhook to notify atlantis about changes in your infrastructure.
+This creates the `atlantis.yaml` repo level configuration and the corresponding webhook to notify atlantis about changes in your infrastructure code. It will detect changes in `.tf[vars]` files within the project root directory by default and trigger the required status check `atlantis/plan`. You can customize project directories by specifying `atlantis_projects`. This may or may not be suitable to you as projects are added over type via the repository itself. 
 
 ##### Example `additional_commits` configuration
 ```hcl
+sync_additional_commits = true|false
 additional_template_dir = abspath(path.module)
 additional_commits      = {
   "templates/my-file" = {
@@ -128,4 +134,4 @@ additional_commits      = {
 This configuration will create a file called `file` within the `dir` directory. Before committing the file all terraform variables are replaced.
 Therefore you also always need to make sure to escape `${}` in your template files with `$${}`. 
 
-If you need to make different commits, enable or stop sync of specific files you may want to use [terraform-git-commit](https://github.com/goci-io/terraform-git-commit) module and configure it specifically for your needs.
+Please refer to [terraform-git-commit](https://github.com/goci-io/terraform-git-commit) module to create completely customized git commits.

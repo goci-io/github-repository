@@ -8,6 +8,10 @@ locals {
     events = ["issue_comment", "pull_request"]
     secret = var.atlantis_webhook_secret
   }
+  atlantis_default_project = {
+    name      = "main"
+    directory = "."
+  }
 }
 
 module "initial_atlantis_commit" {
@@ -28,6 +32,7 @@ module "initial_atlantis_commit" {
       target = "atlantis.yaml"
       data = {
         workspaces = local.atlantis_workspaces
+        projects   = length(var.atlantis_projects) < 1 ? [local.atlantis_default_project] : var.atlantis_projects
       }
     }
   }

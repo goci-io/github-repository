@@ -178,6 +178,15 @@ variable "atlantis_workspaces" {
   description = "Specifies workspaces to deploy the modules into. Defaults to default name and workflow with autoplan true"
 }
 
+variable "atlantis_projects" {
+  type = list(object({
+    name      = string
+    directory = string
+  }))
+  default     = []
+  description = "Projects to include for the given workspaces. Defaults to project called main within current directory"
+}
+
 variable "atlantis_domain" {
   type        = string
   default     = ""

@@ -200,7 +200,7 @@ variable "atlantis_webhook_secret" {
   description = "Webhook secret to use for atlantis. It must be the same secret for all repositories"
 }
 
-variable "atlantis_observe_changes" {
+variable "atlantis_sync_changes" {
   type        = bool
   default     = true
   description = "When there are a changes to the template a new commit will be created"

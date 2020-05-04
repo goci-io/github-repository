@@ -1,0 +1,18 @@
+name: 'angular'
+on:
+  pull_request:
+    branches: 
+      - '*'
+  push:
+    branches:
+      - master
+jobs:
+  test:
+    name: 'angular/test'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Angular Full CI
+        uses: colbyhill21/angular-full-ci/@v1.0
+        with:
+          testcommand: run ${test_command}

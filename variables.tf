@@ -92,18 +92,6 @@ variable "github_organization" {
   description = "The name of the github organization or individual"
 }
 
-variable "github_token" {
-  type        = string
-  default     = ""
-  description = "Github token to use to manage settings. Defaults to environment variable GITHUB_TOKEN"
-}
-
-variable "is_individual" {
-  type        = bool
-  default     = false
-  description = "When a single person name is specified in the github_organization but the token belongs to an individual"
-}
-
 variable "create_team" {
   type        = bool
   default     = false

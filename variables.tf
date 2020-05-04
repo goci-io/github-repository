@@ -180,8 +180,9 @@ variable "atlantis_workspaces" {
 
 variable "atlantis_projects" {
   type = list(object({
-    name      = string
-    directory = string
+    name       = string
+    directory  = string
+    tf_version = string
   }))
   default     = []
   description = "Projects to include for the given workspaces. Defaults to project called main within current directory"

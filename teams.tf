@@ -15,19 +15,10 @@ data "github_team" "prp" {
   slug       = lookup(local.team_attachments[count.index], "name")
 }
 
-data "null_data_source" "teams" {
-  count = var.enabled ? length(local.team_attachments) : 0
-
-  inputs = {
-    id         = element(data.github_team.prp.*.id, count.index)
-    permission = lookup(local.team_attachments[count.index], "permission", "maintain")
-  }
-}
-
 resource "github_team_repository" "prp" {
   count      = var.enabled ? length(local.team_attachments) : 0
-  team_id    = element(data.null_data_source.teams.*.outputs.id, count.index)
-  permission = element(data.null_data_source.teams.*.outputs.permission, count.index)
+  team_id    = element(data.github_team.prp.*.id, count.index)
+  permission = lookup(local.team_attachments[count.index], "permission", "maintain")
   repository = local.repository_name
 
   lifecycle {

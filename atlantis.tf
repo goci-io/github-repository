@@ -9,8 +9,9 @@ locals {
     secret = var.atlantis_webhook_secret
   }
   atlantis_default_project = {
-    name      = "main"
-    directory = "."
+    name       = "main"
+    directory  = "."
+    tf_version = "0.12.24"
   }
 }
 

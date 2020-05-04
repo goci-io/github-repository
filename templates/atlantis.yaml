@@ -6,6 +6,7 @@ projects:
   name: ${project.name}
   workflow: ${workspace.workflow}
   workspace: ${workspace.name}
+  terraform_version: ${project.tf_version}
   autoplan:
     when_modified: ["${project.directory}/*.tf", "${project.directory}/*.tf*"]
     enabled: ${workspace.autoplan}

@@ -8,7 +8,7 @@ projects:
   workspace: ${workspace.name}
   terraform_version: ${project.tf_version}
   autoplan:
-    when_modified: ["${project.directory}/*.tf", "${project.directory}/*.tf*"]
+    when_modified: ["*.tf", "*.tf*"]
     enabled: ${workspace.autoplan}
 %{ endfor ~}
 %{ endfor ~}

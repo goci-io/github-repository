@@ -16,7 +16,7 @@ locals {
 }
 
 module "initial_atlantis_commit" {
-  source                  = "git::https://github.com/goci-io/terraform-git-commit.git?ref=tags/0.3.0"
+  source                  = "git::https://github.com/goci-io/terraform-git-commit.git?ref=tags/0.3.1"
   commit_depends_on       = [module.sync_additional_commit]
   git_repository          = local.repository_name
   git_organization        = var.github_organization

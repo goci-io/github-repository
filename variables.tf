@@ -188,6 +188,12 @@ variable "atlantis_webhook_secret" {
   description = "Webhook secret to use for atlantis. It must be the same secret for all repositories"
 }
 
+variable "atlantis_enable_automerge" {
+  type        = bool
+  default     = true
+  description = "Automatically merge branch one all plans all applied"
+}
+
 variable "atlantis_sync_changes" {
   type        = bool
   default     = true

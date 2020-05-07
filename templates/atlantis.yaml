@@ -1,4 +1,5 @@
 version: 3
+automerge: ${auto_merge}
 projects:
 %{ for workspace in workspaces ~}
 %{ for project in projects ~}

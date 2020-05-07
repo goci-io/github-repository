@@ -33,6 +33,7 @@ module "initial_atlantis_commit" {
       target = "atlantis.yaml"
       data = {
         workspaces = local.atlantis_workspaces
+        auto_merge = var.atlantis_enable_automerge
         projects   = length(var.atlantis_projects) < 1 ? [local.atlantis_default_project] : var.atlantis_projects
       }
     }

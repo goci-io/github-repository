@@ -101,6 +101,7 @@ You either need to provide an already configured Github provider and inject it u
 
 ##### Example [Atlantis](https://www.runatlantis.io/guide/) configuration for the repo level config:
 ```hcl
+atlantis_enable_automerge = true|false # defaults to true
 atlantis_workspaces = [
   {
     name     = "staging"

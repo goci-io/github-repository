@@ -1,0 +1,24 @@
+name: 'angular'
+on:
+  push:
+    branches:
+      - master
+jobs:
+  s3-deploy:
+    name: 'angular/s3-deploy'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Build
+        uses: colbyhill21/angular-full-ci/@v1.0
+        with:
+          testcommand: run ${build_command}
+      - name: Deploy
+        run: |
+          aws s3 sync ./${build_dir} s3://${s3_bucket_id}${target_dir} --no-progress
+%{ if length(environment) > 0 ~}
+        env:
+%{ for key, val in environment ~}
+          ${key}: "${val}"
+%{ endfor ~}
+%{ endif ~}

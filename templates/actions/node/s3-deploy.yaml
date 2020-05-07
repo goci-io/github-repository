@@ -52,10 +52,9 @@ jobs:
       - name: Deploy
         run: |
           aws s3 sync ./${build_dir} s3://${s3_bucket.prod}${target_dir} --no-progress
+%{ if length(environment.prod) > 0 ~}
         env:
-%{ if length(environment.dev) > 0 ~}
-        env:
-%{ for key, val in environment.dev ~}
+%{ for key, val in environment.prod ~}
           ${key}: "${val}"
 %{ endfor ~}
 %{ endif ~}

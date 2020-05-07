@@ -3,7 +3,7 @@ projects:
 %{ for workspace in workspaces ~}
 %{ for project in projects ~}
 - dir: ${project.directory}
-  name: ${project.name}
+  name: ${project.name}-${workspace.name}
   workflow: ${workspace.workflow}
   workspace: ${workspace.name}
   terraform_version: ${project.tf_version}

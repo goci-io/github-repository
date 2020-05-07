@@ -1,0 +1,59 @@
+name: 'deployment'
+on:
+  push:
+    branches:
+      - master
+    tags:
+      - v.*
+jobs:
+  s3-deploy:
+    name: 'deployment/s3-dev'
+    runs-on: [${runner}]
+    steps:
+      - name: 'Checkout'
+        uses: actions/checkout@master
+      - name: Setup node
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${node_version}
+      - run: node --version
+      - run: npm --version
+      - name: Install
+        run: npm install
+      - name: Build
+        run: npm run ${build_command.dev}
+      - name: Deploy
+        run: |
+          aws s3 sync ./${build_dir} s3://${s3_bucket.dev}${target_dir} --no-progress
+%{ if length(environment.dev) > 0 ~}
+        env:
+%{ for key, val in environment.dev ~}
+          ${key}: "${val}"
+%{ endfor ~}
+%{ endif ~}
+  s3-prod-deploy:
+    name: 'deployment/s3-prod'
+    runs-on: [${runner}]
+    if: $${{ github.event_name == 'release' && github.event.action == 'published' }}
+    steps:
+      - name: 'Checkout'
+        uses: actions/checkout@master
+      - name: Setup node
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${node_version}
+      - run: node --version
+      - run: npm --version
+      - name: Install
+        run: npm install
+      - name: Build
+        run: npm run ${build_command.prod}
+      - name: Deploy
+        run: |
+          aws s3 sync ./${build_dir} s3://${s3_bucket.prod}${target_dir} --no-progress
+%{ if length(environment.prod) > 0 ~}
+        env:
+%{ for key, val in environment.prod ~}
+          ${key}: "${val}"
+%{ endfor ~}
+%{ endif ~}

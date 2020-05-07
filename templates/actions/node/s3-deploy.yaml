@@ -1,5 +1,4 @@
 name: 'deployment'
-runs-on: [${runner}]
 on:
   push:
     branches:
@@ -9,7 +8,7 @@ on:
 jobs:
   s3-deploy:
     name: 'deployment/s3-dev'
-    runs-on: ubuntu-latest
+    runs-on: [${runner}]
     steps:
       - name: 'Checkout'
         uses: actions/checkout@master
@@ -34,7 +33,7 @@ jobs:
 %{ endif ~}
   s3-prod-deploy:
     name: 'deployment/s3-prod'
-    runs-on: ubuntu-latest
+    runs-on: [${runner}]
     if: $${{ github.event_name == 'release' && github.event.action == 'published' }}
     steps:
       - name: 'Checkout'

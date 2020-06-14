@@ -39,7 +39,7 @@ module "repository" {
 ```
 
 Look into the [terraform.tfvars](terraform.tfvars.example) example file or find more variables in the [variables.tf](variables.tf).
-You also need to make sure to have a valid token set in `GITHUB_TOKEN` environment variable to configure the terraform provider or set terraform variable `github_token`.
+Make sure to configure your Github Provider with a Token set (e.g. via `GITHUB_TOKEN` environment variable).
 
 In case the repository already exists but you still want to configure settings you can set `create_repository` to false.
 
@@ -50,7 +50,6 @@ In case the repository already exists but you still want to configure settings y
 | enabled | Whether to create any resources at all | `true` |
 | github_base_url | The base url to github | `github.com` |
 | github_organization | The organization name to create resources for | - |
-| github_token | Github token to use to manage settings. Defaults to environment variable `GITHUB_TOKEN` | `""` |
 | create_repository | Creates the repository if set to true | `true` |
 | repository_name | The name of the repository | - |
 | repository_description | Short description of the repository | `Repository created by goci-io/github-repository` |

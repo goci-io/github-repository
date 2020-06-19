@@ -24,7 +24,8 @@ resource "github_repository" "repository" {
   has_projects           = var.enable_projects
 
   lifecycle {
-    prevent_destroy = true
+    # Can be restored at https://github.com/organizations/<org>/settings/deleted_repositories
+    # prevent_destroy = true
   }
 }
 

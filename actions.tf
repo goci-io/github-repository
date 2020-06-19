@@ -16,7 +16,7 @@ data "null_data_source" "actions" {
 }
 
 module "initial_actions_commit" {
-  source                  = "git::https://github.com/goci-io/terraform-git-commit.git?ref=tags/0.3.1"
+  source                  = "git::https://github.com/goci-io/terraform-git-commit.git?ref=tags/0.3.2"
   commit_depends_on       = [module.sync_additional_commit, module.initial_atlantis_commit]
   git_repository          = local.repository_name
   git_organization        = var.github_organization
@@ -35,7 +35,7 @@ module "initial_actions_commit" {
 }
 
 module "sync_actions_commit" {
-  source                  = "git::https://github.com/goci-io/terraform-git-commit.git?ref=tags/0.3.1"
+  source                  = "git::https://github.com/goci-io/terraform-git-commit.git?ref=tags/0.3.2"
   commit_depends_on       = [module.initial_actions_commit]
   git_repository          = local.repository_name
   git_organization        = var.github_organization

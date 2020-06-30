@@ -21,7 +21,7 @@ jobs:
 
       - name: Deploy
         run: |
-          aws s3 sync ./${build_dir} s3://${s3_bucket}${target_dir} --no-progress
+          aws s3 sync ./public/ s3://${s3_bucket}${target_dir} --no-progress
 %{ if length(environment) > 0 ~}
         env:
 %{ for key, val in environment ~}

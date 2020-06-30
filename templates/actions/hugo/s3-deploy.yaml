@@ -27,3 +27,4 @@ jobs:
 %{ for key, val in environment ~}
           ${key}: "${val}"
 %{ endfor ~}
+%{ endif ~}

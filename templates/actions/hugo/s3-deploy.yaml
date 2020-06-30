@@ -1,9 +1,11 @@
 on:
-  tags:
-    - "*"
+  push:
+    tags:
+      - "*"
 
 jobs:
   deploy:
+    name: 'hugo/s3-deploy'
     runs-on: [${runner}]
     steps:
       - uses: actions/checkout@v2

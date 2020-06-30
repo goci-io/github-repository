@@ -1,6 +1,7 @@
 
 locals {
-  action_names = keys(var.actions)
+  action_names    = keys(var.actions)
+  actions_enabled = var.enabled && length(local.action_names) > 0
 }
 
 data "null_data_source" "actions" {
@@ -24,7 +25,7 @@ module "initial_actions_commit" {
   ssh_key_file            = local.ssh_key_file_path
   templates_root_dir      = abspath(path.module)
   repository_checkout_dir = var.repository_checkout_dir
-  enabled                 = var.enabled && var.create_repository
+  enabled                 = local.actions_enabled && var.create_repository
   message                 = "[goci] add initial github actions"
   branch                  = "master"
   changes                 = false
@@ -46,7 +47,7 @@ module "sync_actions_commit" {
   message                 = "[goci] update github actions"
   branch                  = "goci-update-actions"
   changes                 = true
-  enabled                 = var.enabled
+  enabled                 = local.actions_enabled
   paths = zipmap(
     data.null_data_source.actions.*.outputs.key,
     jsondecode(format("[%s]", join(",", data.null_data_source.actions.*.outputs.value)))

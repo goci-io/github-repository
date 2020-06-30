@@ -1,6 +1,6 @@
 on:
   tags:
-     - "*"
+    - "*"
 
 jobs:
   deploy:

@@ -11,8 +11,8 @@ locals {
 
 resource "github_repository" "repository" {
   count                  = var.enabled && var.create_repository ? 1 : 0
+  visibility             = var.repository_visibility_private ? "private" : "public"
   name                   = var.repository_name
-  private                = var.repository_visibility_private
   description            = var.repository_description
   homepage_url           = var.homepage_url
   topics                 = var.topics

@@ -1,0 +1,29 @@
+on:
+  tags:
+     - "*"
+
+jobs:
+  deploy:
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          submodules: ${submodules}
+          fetch-depth: 0
+
+      - name: Setup Hugo
+        uses: peaceiris/actions-hugo@v2
+        with:
+          hugo-version: '${hugo_version}'
+
+      - name: Build
+        run: hugo --minify
+
+      - name: Deploy
+        run: |
+          aws s3 sync ./${build_dir} s3://${s3_bucket}${target_dir} --no-progress
+%{ if length(environment) > 0 ~}
+        env:
+%{ for key, val in environment ~}
+          ${key}: "${val}"
+%{ endfor ~}

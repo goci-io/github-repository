@@ -1,0 +1,21 @@
+name: 'deployment'
+on:
+  push:
+    branches:
+      - master
+jobs:
+  s3-upload:
+    name: 'aws/s3-upload'
+    runs-on: [${runner}]
+    steps:
+      - name: 'Checkout'
+        uses: actions/checkout@master
+      - name: Upload
+        run: |
+          aws s3 sync ./${dist_dir} s3://${s3_bucket}${target_dir} --no-progress
+%{ if length(environment) > 0 ~}
+        env:
+%{ for key, val in environment ~}
+          ${key}: "${val}"
+%{ endfor ~}
+%{ endif ~}

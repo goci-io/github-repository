@@ -4,7 +4,7 @@ terraform {
   required_providers {
     template = "~> 2.1"
     random   = "~> 2.2"
-    github   = "~> 2.2"
+    github   = "~> 2.9"
     null     = "~> 2.1"
     local    = "~> 1.3"
     tls      = "~> 2.1"

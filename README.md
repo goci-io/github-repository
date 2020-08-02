@@ -9,7 +9,6 @@ This module provisions a new github repository. A new repository consists of the
 - Initial `README.md`, `LICENSE` and `.gitignore` file  
 - GitHub Actions to build and deploy the project (optional)  
 - Webhook with ability to autogenerate secrets (optional)  
-- [Atlantis](https://www.runatlantis.io/guide/) Repo level configuration (optional)  
 - Commit and sync additional files (optional)  
 - Branch protections and repository settings
 
@@ -70,9 +69,6 @@ In case the repository already exists but you still want to configure settings y
 | public_ssh_key_file | Path to the SSH key file to upload to github. Leave empty to generate one | `""` |
 | status_checks | List of required status checks before merging. Only used when branch protection is enabled | `[]` |
 | actions | Map of actions and config to enable | `{}` | 
-| atlantis_workspaces | List of workspaces to deploy Terraform modules for | `[{ name = "default", workflow = "default" }]` |
-| atlantis_projects | Projects to include for the given workspaces. Defaults to project called main within current directory | `[{ name = "main", directory = "." }]` |
-| atlantis_domain | Domain of the atlantis server. Must be set to enable atlantis. | `""` |
 | additional_commits | List of objects with additional templatefiles to commit and sync | `[]` |
 | additional_template_dir | Path to the template directory containing your additional files | `"."` | 
 | sync_additional_commits | Creates new branches for changes in the tempate files | `false` |
@@ -97,25 +93,6 @@ The template name should reference a file created in [`templates`](https://githu
 The SSH-Key given in `ssh_key_file` can be updated at any time. To make changes to your repository and create new branches we use a Github Deploy Key which is limited to the scope of your repository and stays in sync with your SSH key. We suggest to leave `ssh_key_file` **empty** to autogenerate an SSH key. To rotate the auto generated SSH key you need to destroy the SSH key resource using `terraform destroy -target=tls_private_key.ci_ssh`. 
 
 You either need to provide an already configured Github provider and inject it using `providers = { github = github.my-provider }` or pass `github_token` variable to this module. The token needs to have access to make changes to the repository settings on your behalf, manage deploy keys and create repositories when `create_repository` is set to true (default).
-
-##### Example [Atlantis](https://www.runatlantis.io/guide/) configuration for the repo level config:
-```hcl
-atlantis_enable_automerge = true|false # defaults to true
-atlantis_workspaces = [
-  {
-    name     = "staging"
-    workflow = "staging-aws"
-    autoplan = true
-  },
-  {
-    name     = "prod"
-    workflow = "prod-aws"
-    autoplan = true
-  }
-]
-```
-
-This creates the `atlantis.yaml` repo level configuration and the corresponding webhook to notify atlantis about changes in your infrastructure code. It will detect changes in `.tf[vars]` files within the project root directory by default and trigger the required status check `atlantis/plan`. You can customize project directories by specifying `atlantis_projects`. This may or may not be suitable to you as projects are added over type via the repository itself. 
 
 ##### Example `additional_commits` configuration
 ```hcl

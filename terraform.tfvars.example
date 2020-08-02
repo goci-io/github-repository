@@ -6,7 +6,6 @@ homepage_url           = "https://goci.io"
 github_organization    = "goci-io"
 gitignore_template     = "Terraform"
 ssh_key_file           = "~/.ssh/github_id_rsa"
-atlantis_domain        = "https://atlantis.testing.eu1.goci.io/events"
 
 webhooks = [
   {

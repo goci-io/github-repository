@@ -14,7 +14,7 @@ resource "random_password" "secret" {
 resource "github_repository_webhook" "webhooks" {
   count      = var.enabled ? length(var.webhooks) : 0
   repository = local.repository_name
-  events     = lookup(local.webhooks[count.index], "events", ["push"])
+  events     = lookup(var.webhooks[count.index], "events", ["push"])
 
   configuration {
     url          = lookup(var.webhooks[count.index], "url")

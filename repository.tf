@@ -3,10 +3,6 @@ locals {
   repository_name    = var.create_repository ? join("", github_repository.repository.*.name) : var.repository_name
   repository_remote  = format("git@%s:%s/%s.git", var.github_base_url, var.github_organization, local.repository_name)
   repository_dir     = format("%s/repository", abspath(path.module))
-  status_checks = concat(
-    var.status_checks,
-    local.atlantis_enabled ? ["atlantis/plan"] : []
-  )
 }
 
 resource "github_repository" "repository" {
@@ -34,7 +30,6 @@ resource "github_branch_protection" "master" {
   depends_on = [
     module.initial_readme_commit,
     module.initial_actions_commit,
-    module.initial_atlantis_commit,
     module.initial_additional_commit,
   ]
 
@@ -51,11 +46,11 @@ resource "github_branch_protection" "master" {
   }
 
   dynamic "required_status_checks" {
-    for_each = length(local.status_checks) > 0 ? [1] : []
+    for_each = length(var.status_checks) > 0 ? [1] : []
 
     content {
       strict   = true
-      contexts = local.status_checks
+      contexts = var.status_checks
     }
   }
 }

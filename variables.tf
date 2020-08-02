@@ -156,56 +156,6 @@ variable "actions" {
   description = "GitHub Actions to commit to the repository. Available actions can be found in templates/actions"
 }
 
-variable "atlantis_workspaces" {
-  type = list(object({
-    autoplan = bool
-    name     = string
-    workflow = string
-  }))
-  default     = []
-  description = "Specifies workspaces to deploy the modules into. Defaults to default name and workflow with autoplan true"
-}
-
-variable "atlantis_projects" {
-  type = list(object({
-    name       = string
-    directory  = string
-    tf_version = string
-  }))
-  default     = []
-  description = "Projects to include for the given workspaces. Defaults to project called main within current directory"
-}
-
-variable "atlantis_domain" {
-  type        = string
-  default     = ""
-  description = "Domain of the atlantis server. Must be set to enable atlantis"
-}
-
-variable "atlantis_webhook_secret" {
-  type        = string
-  default     = ""
-  description = "Webhook secret to use for atlantis. It must be the same secret for all repositories"
-}
-
-variable "atlantis_enable_automerge" {
-  type        = bool
-  default     = true
-  description = "Automatically merge branch one all plans all applied"
-}
-
-variable "atlantis_sync_changes" {
-  type        = bool
-  default     = true
-  description = "When there are a changes to the template a new commit will be created"
-}
-
-variable "atlantis_branch" {
-  type        = string
-  default     = "atlantis"
-  description = "The branch changes to atlantis files should be pushed to"
-}
-
 variable "additional_commits" {
   type        = any
   default     = {}
